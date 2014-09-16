@@ -37,6 +37,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('tabs.projects', {
+      url: "/projects",
+      views: {
+        'projects-tab' : {
+          templateUrl: "templates/projects.html"
+        }
+      }
+    })
     .state('tabs.about', {
       url: "/about",
       views: {
