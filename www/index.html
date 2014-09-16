@@ -35,8 +35,8 @@
           <ion-nav-view name="projects-tab"></ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="tabs.contact">
-          <ion-nav-view name="contact-tab"></ion-nav-view>
+        <ion-tab title="Notifications" icon="ion-ios7-world" ui-sref="tabs.notifications">
+          <ion-nav-view name="notifications-tab"></ion-nav-view>
         </ion-tab>
 
       </ion-tabs>
@@ -127,12 +127,11 @@
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
         <ion-content class="padding">
-          <h3>Create hybrid mobile apps with the web technologies you love.</h3>
+          <img src="http://cityzenapp.us/wp-content/uploads/2014/05/CityzenHalf_retina.png">
+          <h3>We believe in giving everyone a voice, where they are.</h3>
           <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
           <p>Built with Sass and optimized for AngularJS.</p>
-          <p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
-          </p>
+          
         </ion-content>
       </ion-view>
     </script>
@@ -145,17 +144,55 @@
       </ion-view>
     </script>
 
-    <script id="templates/contact.html" type="text/ng-template">
-      <ion-view title="Contact">
+    <script id="templates/notifications.html" type="text/ng-template">
+      <ion-view title="Notifications">
         <ion-content>
           <div class="list">
-            <div class="item">
-              @IonicFramework
+            <div class="card">
+              <div class="item item-text-wrap">
+                Project "Project Name" is happening in your location!
+              </div>
             </div>
-            <div class="item">
-              @DriftyTeam
+            <div class="card">
+              <div class="item item-text-wrap">
+              Project "Project Name" that you voted for has been approved. <a href="#">See the results.</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="item item-text-wrap">
+              A new project of the category "Roads" is underway. 
+              </div>
+            </div>
+            <div class="card">
+              <div class="item item-text-wrap">
+              Project "Project Name" is happening in your location. 
+              </div>
             </div>
           </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/login.html" type="text/ng-template">
+      <ion-view title="Login">
+        <ion-content>
+          <img src="http://cityzenapp.us/wp-content/uploads/2014/05/CityzenHalf_retina.png">
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password">
+            </label>
+          </div>
+          <a href="/#/tab/about" class="button button-full button-balanced">
+            Login
+          </a>
+          <button class="button button-full button-stable">
+            Register
+          </button>
         </ion-content>
       </ion-view>
     </script>
