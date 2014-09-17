@@ -28,7 +28,6 @@ To run on Android devices, simply plug in the device into the computer and run t
 $ ionic run android
 
 ```
-
 Troubleshooting:
 
 If you receive errors during the platform build process, be sure the following are true:
@@ -36,6 +35,7 @@ If you receive errors during the platform build process, be sure the following a
 1) Add the Cordova Plug-in to the Project Directory by running the following command: "cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git" 
   (see reference: http://forum.ionicframework.com/t/unable-to-add-plugins-perhaps-your-version-of-cordova-is-too-old/3807)
 2) Ensure that your JAVA_HOME variable is set to your JDK folder not JRE folder
+
 
 Then,
 
