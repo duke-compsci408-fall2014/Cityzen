@@ -58,14 +58,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('tabs.navstack', {
-      url: "/navstack",
-      views: {
-        'about-tab': {
-          templateUrl: "templates/nav-stack.html"
-        }
-      }
-    })
     .state('tabs.notifications', {
       url: "/notifications",
       views: {
