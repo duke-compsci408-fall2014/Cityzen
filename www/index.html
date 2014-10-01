@@ -23,6 +23,8 @@
     <!-- your app's controllers -->
     <script src="js/controllers/header.js"></script>
     <script src="js/controllers/projects.js"></script>
+    <script src="js/controllers/settings.js"></script>
+
   </head>
 
   <body>
@@ -104,7 +106,7 @@
       </ion-view>
     </script>
 
-    <script id="templates/facts.html" type="text/ng-template">
+    <!-- here for inspiration script id="templates/facts.html" type="text/ng-template">
       <ion-view title="Facts">
         <ion-content class="padding">
           <p>Banging your head against a wall uses 150 calories an hour.</p>
@@ -118,9 +120,9 @@
           </p>
         </ion-content>
       </ion-view>
-    </script>
+    </script-->
 
-    <script id="templates/facts2.html" type="text/ng-template">
+    <!--here for inspiration script id="templates/facts2.html" type="text/ng-template">
       <ion-view title="Also Factual">
         <ion-content class="padding">
           <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
@@ -135,7 +137,7 @@
           </p>
         </ion-content>
       </ion-view>
-    </script>
+    </script-->
 
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
@@ -181,7 +183,17 @@
     <script id="templates/settings.html" type="text/ng-template">
       <ion-view title="Settings">
         <ion-content>
-          HELLO
+          <ul class="list">
+            <li class="item item-toggle">
+              Receive Push Notifications
+              <label class="toggle toggle-balanced">
+                <input type="checkbox">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+          </ul>
         </ion-content>
       </ion-view>
     </script>
