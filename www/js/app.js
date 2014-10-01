@@ -40,7 +40,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: "templates/notifications.html"
         }
       }
+    })
+    .state('tabs.settings', {
+      url: "/settings",
+      views: {
+        'settings-tab': {
+          templateUrl: "templates/settings.html"
+        }
+      }
     });
+
+
 
    $urlRouterProvider.otherwise("/");
 
