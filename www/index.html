@@ -20,15 +20,21 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
 
-    <script src="js/app.js"></script>
+    <!-- your app's controllers -->
+    <script src="js/controllers/header.js"></script>
+    <script src="js/controllers/projects.js"></script>
   </head>
 
   <body>
-    <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+    <ion-nav-bar class="nav-title-slide-ios7 bar-positive" ng-controller="HeaderCtrl">
+      {{sidemenu}}
+      <div ng-if="sidemenu">  
+        YO SIDEMENU HERE.
+      </div> 
       <ion-nav-back-button class="button-icon ion-arrow-left-c">
       </ion-nav-back-button>
     </ion-nav-bar>
-             
+
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
 
     <script id="templates/tabs.html" type="text/ng-template">
@@ -38,7 +44,7 @@
           <ion-nav-view name="home-tab"></ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about">
+        <ion-tab title="About" icon="ion-ios7-information" ui-sref="tabs.about">
           <ion-nav-view name="about-tab"></ion-nav-view>
         </ion-tab>
 
@@ -143,14 +149,6 @@
           <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
           <p>Built with Sass and optimized for AngularJS.</p>
           
-        </ion-content>
-      </ion-view>
-    </script>
-
-    <script id="templates/nav-stack.html" type="text/ng-template">
-      <ion-view title="Tab Nav Stack">
-        <ion-content class="padding">
-          <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
         </ion-content>
       </ion-view>
     </script>

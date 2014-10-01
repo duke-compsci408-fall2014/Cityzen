@@ -7,7 +7,6 @@ var app = angular.module('cityzen', ['ionic'])
 app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-
     .state('login', {
       url: "/", 
       templateUrl: "templates/login.html"
@@ -15,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('tabs', {
       url: "/tab",
       abstract: true,
-      templateUrl: "templates/tabs.html"
+      templateUrl: "templates/tabs.html",
     })
     .state('tabs.home', {
       url: "/home",
@@ -46,7 +45,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/projects",
       views: {
         'projects-tab' : {
-          templateUrl: "templates/projects.html"
+          templateUrl: "templates/projects.html",
+          controller: "ProjectsCtrl"
         }
       }
     })
@@ -55,14 +55,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'about-tab': {
           templateUrl: "templates/about.html"
-        }
-      }
-    })
-    .state('tabs.navstack', {
-      url: "/navstack",
-      views: {
-        'about-tab': {
-          templateUrl: "templates/nav-stack.html"
         }
       }
     })
