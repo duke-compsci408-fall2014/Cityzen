@@ -16,31 +16,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: "templates/tabs.html",
     })
-    .state('tabs.home', {
-      url: "/home",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/home.html",
-          controller: 'HomeTabCtrl'
-        }
-      }
-    })
-    .state('tabs.facts', {
-      url: "/facts",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts.html"
-        }
-      }
-    })
-    .state('tabs.facts2', {
-      url: "/facts2",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts2.html"
-        }
-      }
-    })
     .state('tabs.projects', {
       url: "/projects",
       views: {
@@ -67,14 +42,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     });
 
-
    $urlRouterProvider.otherwise("/");
 
 })
-
-.controller('HomeTabCtrl', function($scope) {
-  console.log('HomeTabCtrl');
-});
 
 
 app.run(function($ionicPlatform) {
