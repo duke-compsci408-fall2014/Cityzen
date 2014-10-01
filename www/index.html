@@ -184,16 +184,65 @@
       <ion-view title="Settings">
         <ion-content>
           <ul class="list">
+            <label class="item item-input">
+              <span class="input-label">First Name</span>
+              <input type="text" ng-model="first_name">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Last Name</span>
+              <input type="text" ng-model="last_name">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Address</span>
+              <input type="text" ng-model="address">
+            </label>
             <li class="item item-toggle">
-              Receive Push Notifications
-              <label class="toggle toggle-balanced">
+              Receive Notifications
+              <label class="toggle toggle-balanced" ng-click="toggleNotifications()">
                 <input type="checkbox">
                 <div class="track">
                   <div class="handle"></div>
                 </div>
               </label>
             </li>
+            <span ng-if="notifications" class="animate-if">
+              <li>
+                <label class="item item-input item-select">
+                  <div class="input-label">
+                    Default City
+                  </div>
+                  <select>
+                    <option>Raleigh</option>
+                    <option selected>Durham</option>
+                    <option>New York</option>
+                    <option>San Francisco</option>
+                    <option>Boston</option>
+                  </select>
+                </label>
+              </li>
+              <li class="item item-toggle">
+              Allow Push Notifications
+                <label class="toggle toggle-balanced">
+                  <input type="checkbox">
+                  <div class="track">
+                   <div class="handle"></div>
+                  </div>
+                </label>
+              </li>
+              <li class="item item-toggle">
+              Allow Location Notifications
+                <label class="toggle toggle-balanced">
+                  <input type="checkbox">
+                  <div class="track">
+                   <div class="handle"></div>
+                  </div>
+                </label>
+              </li>
+            </span>
           </ul>
+          <div ng-if="notifications" class="animate-if">
+
+          </div>
         </ion-content>
       </ion-view>
     </script>
