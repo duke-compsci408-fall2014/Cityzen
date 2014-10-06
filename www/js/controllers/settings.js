@@ -25,8 +25,6 @@ app.controller('SettingsCtrl', function($scope, $window) {
 	}
 
 
-}]);
-
 	$scope.toggleGeolocation = function(){
 		$scope.geolocation= !$scope.geolocation;
 		console.log($scope.geolocation);
@@ -41,5 +39,9 @@ app.controller('SettingsCtrl', function($scope, $window) {
 	}
 
 
-});
+}]);
+
+	
+
+
 
