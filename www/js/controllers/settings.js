@@ -22,5 +22,4 @@ app.controller('SettingsCtrl', ['$scope', function($scope) {
 		console.log("toggling notifs");
 	}
 
-
 }]);
