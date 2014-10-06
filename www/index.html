@@ -14,6 +14,10 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <!-- ngcordova -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -24,6 +28,7 @@
     <script src="js/controllers/header.js"></script>
     <script src="js/controllers/projects.js"></script>
     <script src="js/controllers/settings.js"></script>
+    <script src="js/controllers/localNotifications.js"></script>
 
   </head>
 
@@ -146,6 +151,8 @@
           <h3>We believe in giving everyone a voice, where they are.</h3>
           <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
           <p>Built with Sass and optimized for AngularJS.</p>
+          <button ng-click="addNotification()">Click me</button>
+          
           
         </ion-content>
       </ion-view>
@@ -231,7 +238,7 @@
               </li>
               <li class="item item-toggle">
               Allow Location Notifications
-                <label class="toggle toggle-balanced">
+                <label class="toggle toggle-balanced" ng-click="toggleGeolocation()">
                   <input type="checkbox">
                   <div class="track">
                    <div class="handle"></div>

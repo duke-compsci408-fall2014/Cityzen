@@ -2,7 +2,7 @@
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html) // the 2nd parameter is an array of 'requires'
-var app = angular.module('cityzen', ['ionic'])
+var app = angular.module('cityzen', ['ionic', 'ngCordova'])
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -29,7 +29,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/about",
       views: {
         'about-tab': {
-          templateUrl: "templates/about.html"
+          templateUrl: "templates/about.html",
+          controller: "NotificationCtrl"
         }
       }
     })
@@ -70,3 +71,6 @@ app.run(function($ionicPlatform) {
     }
   });
 })
+
+
+
