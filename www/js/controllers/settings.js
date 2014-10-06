@@ -11,7 +11,7 @@ app.controller('SettingsCtrl', function($scope, $window) {
 	$scope.notifications = false;
 
 	//GPS enabled?
-	$scope.geolocation - false;
+	$scope.geolocation = false;
 
 	//retrieve firstname from state
 	$scope.first_name = "Will";
