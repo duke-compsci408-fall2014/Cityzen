@@ -16,12 +16,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: "templates/tabs.html",
     })
-    .state('tabs.projects', {
-      url: "/projects",
+    .state('tabs.polls', {
+      url: "/polls",
       views: {
-        'projects-tab' : {
-          templateUrl: "templates/projects.html",
-          controller: "ProjectsCtrl"
+        'polls-tab' : {
+          templateUrl: "templates/polls.html",
+          controller: "PollsCtrl"
         }
       }
     })
