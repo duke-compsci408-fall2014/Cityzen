@@ -1,7 +1,7 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('SettingsCtrl', function($scope, $window) {
+app.controller('SettingsCtrl',function($scope, $window) {
 	console.log("SettingsCtrl");
 
 	//
@@ -39,7 +39,7 @@ app.controller('SettingsCtrl', function($scope, $window) {
 	}
 
 
-}]);
+});
 
 	
 
