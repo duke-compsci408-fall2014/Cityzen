@@ -9,7 +9,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('login', {
       url: "/", 
-      templateUrl: "templates/login.html"
+      templateUrl: "templates/login.html",
+      controller: "loginCtrl"
     })
     .state('tabs', {
       url: "/tab",
