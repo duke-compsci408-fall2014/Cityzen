@@ -5,5 +5,6 @@ app.controller('PollsCtrl', ['$scope', 'pollService', function($scope, pollServi
 
 	$scope.polls = pollService.getAllPolls();
 
+	$scope.searchText = "";
 
 }]);
