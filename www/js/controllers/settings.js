@@ -5,21 +5,21 @@ app.controller('SettingsCtrl',function($scope, $window, userService) {
 	console.log("SettingsCtrl");
 
 
-	//find notification settings:
-	$scope.notifications = userService.settings.notifications.areOn;
-
-	//GPS enabled?
-	$scope.geolocation = userService.settings.notifications.gpsOn;
-
-	//retrieve firstname from state
-	$scope.first_name = userService.settings.user.first_name;
-	$scope.last_name = userService.settings.user.last_name;
-
-	$scope.address = userService.settings.user.address;
+	//get persisted settings
+	$scope.settings = userService.settings;
+	
 
 	$scope.toggleNotifications = function() {
-		$scope.notifications = !$scope.notifications;
+		userService.settings.notifications.areOn = !userService.settings.notifications.areOn;
 		console.log("toggling notifs");
+	}
+
+	$scope.togglePushNotifications = function() {
+		userService.settings.notifications.pushOn = !userService.settings.notifications.pushOn;
+	}
+
+	$scope.toggleGPSNotifications = function() {
+		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
 	}
 
 

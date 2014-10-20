@@ -51,9 +51,6 @@
     <script id="templates/tabs.html" type="text/ng-template">
       <ion-tabs class="tabs-icon-top tabs-positive">
 
-        <ion-tab title="About" icon="ion-ios7-information" ui-sref="tabs.about">
-          <ion-nav-view name="about-tab"></ion-nav-view>
-        </ion-tab>
 
         <ion-tab title="Polls" icon="ion-navicon-round" ui-sref="tabs.polls">
           <ion-nav-view name="polls-tab"></ion-nav-view>
@@ -65,6 +62,10 @@
 
         <ion-tab title="Settings" icon="ion-gear-a" ui-sref="tabs.settings">
           <ion-nav-view name="settings-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="About" icon="ion-ios7-information" ui-sref="tabs.about">
+          <ion-nav-view name="about-tab"></ion-nav-view>
         </ion-tab>
 
       </ion-tabs>
@@ -191,34 +192,34 @@
           <ul class="list">
             <label class="item item-input">
               <span class="input-label">First Name</span>
-              <input type="text" ng-model="first_name">
+              <input type="text" ng-model="settings.user.fist_name">
             </label>
             <label class="item item-input">
               <span class="input-label">Last Name</span>
-              <input type="text" ng-model="last_name">
+              <input type="text" ng-model="settings.user.last_name">
             </label>
             <label class="item item-input">
               <span class="input-label">Address</span>
-              <input type="text" ng-model="address">
+              <input type="text" ng-model="settings.user.address">
             </label>
             <li class="item item-toggle">
               Receive Notifications
               <label class="toggle toggle-balanced" ng-click="toggleNotifications()">
-                <input type="checkbox">
+                <input type="checkbox" ng-checked="settings.notifications.areOn">
                 <div class="track">
                   <div class="handle"></div>
                 </div>
               </label>
             </li>
-            <span ng-if="notifications" class="animate-if">
+            <span ng-if="settings.notifications.areOn" class="animate-if">
               <li>
                 <label class="item item-input item-select">
                   <div class="input-label">
                     Default City
                   </div>
                   <select>
-                    <option>Raleigh</option>
-                    <option selected>Durham</option>
+                    <option selected>Raleigh</option>
+                    <option>Durham</option>
                     <option>New York</option>
                     <option>San Francisco</option>
                     <option>Boston</option>
@@ -227,17 +228,17 @@
               </li>
               <li class="item item-toggle">
               Allow Push Notifications
-                <label class="toggle toggle-balanced">
-                  <input type="checkbox">
+                <label class="toggle toggle-balanced" ng-click="togglePushNotifications()">
+                  <input type="checkbox" ng-checked="settings.notifications.pushOn"> 
                   <div class="track">
                    <div class="handle"></div>
                   </div>
                 </label>
               </li>
               <li class="item item-toggle">
-              Allow Location Notifications
-                <label class="toggle toggle-balanced" ng-click="toggleGeolocation()">
-                  <input type="checkbox">
+              Allow GPS Notifications
+                <label class="toggle toggle-balanced" ng-click="toggleGPSNotifications()">
+                  <input type="checkbox" ng-checked="settings.notifications.gpsOn">
                   <div class="track">
                    <div class="handle"></div>
                   </div>
@@ -265,7 +266,7 @@
             </label>
           </div>
           <div>
-            <a href="#/tab/about" class="button button-full button-balanced">
+            <a href="#/tab/polls" class="button button-full button-balanced">
               Login
             </a>
             <button class="button button-block button-stable">
