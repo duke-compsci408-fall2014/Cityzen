@@ -1,23 +1,21 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('SettingsCtrl',function($scope, $window) {
+app.controller('SettingsCtrl',function($scope, $window, userService) {
 	console.log("SettingsCtrl");
 
-	//
-	$scope.isEditing = false;
 
 	//find notification settings:
-	$scope.notifications = false;
+	$scope.notifications = userService.settings.notifications.areOn;
 
 	//GPS enabled?
-	$scope.geolocation = false;
+	$scope.geolocation = userService.settings.notifications.gpsOn;
 
 	//retrieve firstname from state
-	$scope.first_name = "Will";
-	$scope.last_name = "Smith";
+	$scope.first_name = userService.settings.user.first_name;
+	$scope.last_name = userService.settings.user.last_name;
 
-	$scope.address = "505 Main, New York, NY";
+	$scope.address = userService.settings.user.address;
 
 	$scope.toggleNotifications = function() {
 		$scope.notifications = !$scope.notifications;
