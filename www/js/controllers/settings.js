@@ -22,6 +22,18 @@ app.controller('SettingsCtrl',function($scope, $window, userService) {
 		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
 	}
 
+	$scope.toggleCategory = function(id) {
+		var categories = userService.settings.notifications.categories;
+		for (var i = 0 ; i < categories.length ; i++) {
+			var category = categories[i];
+			if (category.id == id) {
+				userService.settings.notifications.categories[i].selected = !category.selected;
+				break;
+			}
+		}
+		userService.settings.notifications.categories = categories;
+	}
+
 
 	$scope.toggleGeolocation = function(){
 		$scope.geolocation= !$scope.geolocation;

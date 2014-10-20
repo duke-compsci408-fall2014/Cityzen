@@ -152,7 +152,6 @@
           <p>Built with Sass and optimized for AngularJS.</p>
           <button ng-click="addNotification()">Click me</button>
           
-          
         </ion-content>
       </ion-view>
     </script>
@@ -190,9 +189,15 @@
 
     <script id="templates/notification_categories.html" type="text/ng-template">
       <ion-view title="Categories">
-        <ion-content class="padding">
-          HELLO THESE ARE Categories
-          
+        <ion-content>
+          <ul class="list">
+            <li ng-repeat="category in settings.notifications.categories" class="item item-checkbox" ng-click="toggleCategory(category.id)">
+               <label class="checkbox">
+                 <input type="checkbox" ng-checked="category.selected">
+               </label>
+               {{category.name}}
+            </li>
+          </ul>
           
         </ion-content>
       </ion-view>
@@ -238,9 +243,8 @@
                   </select>
                 </label>
               </li>
-              <li>
-                <a href="#/tab/settings/categories"> Choose Subscribed Categories </a>
-              </li>
+              <a class="item" href="#/tab/settings/categories"> Choose Subscribed Categories 
+              </a>
               <li class="item item-toggle">
               Allow Push Notifications
                 <label class="toggle toggle-balanced" ng-click="togglePushNotifications()">
