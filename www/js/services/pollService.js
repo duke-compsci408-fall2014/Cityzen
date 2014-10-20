@@ -5,9 +5,10 @@ Viewing polls
 */
 app.service('pollService', function($http) {
 
+	var URL = "http://www.cityzenapp.us/core/poll/";
+
 	this.getAllPolls = function() {
 		//get all polls with HTTP request...
-
 
 		poll1 = {
 			id: 1,
