@@ -51,7 +51,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controller: "SettingsCtrl"
         }
       }
-    });
+    }).state('tabs.notification_categories', {
+      url: "/settings/categories",
+      views: {
+        'settings-tab': {
+          templateUrl: "templates/notification_categories.html",
+          controller: "SettingsCtrl"
+        }
+      }
+    })
+
+
+    ;
 
 
 
