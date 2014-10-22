@@ -1,7 +1,7 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('SettingsCtrl',function($scope, $window, userService) {
+app.controller('SettingsCtrl',function($scope, $window, userService, locationService) {
 	console.log("SettingsCtrl");
 
 
@@ -20,7 +20,16 @@ app.controller('SettingsCtrl',function($scope, $window, userService) {
 
 	$scope.toggleGPSNotifications = function() {
 		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
+		if(userService.settings.notifications.gpsOn){
+	  		if (window.navigator.geolocation != null) {
+				$window.navigator.geolocation.watchPosition(locationService.getZipCode, function(error) {
+					console.log('code: '    + error.code    + '\n' +
+		          'message: ' + error.message + '\n');
+				}, {timeout:5000});
+			}
+		}
 	}
+
 
 	$scope.toggleCategory = function(id) {
 		var categories = userService.settings.notifications.categories;
@@ -33,22 +42,6 @@ app.controller('SettingsCtrl',function($scope, $window, userService) {
 		}
 		userService.settings.notifications.categories = categories;
 	}
-
-
-	$scope.toggleGeolocation = function(){
-		$scope.geolocation= !$scope.geolocation;
-		console.log($scope.geolocation);
-		if($scope.geolocation){
-			$window.navigator.geolocation.getCurrentPosition(function(position){
-				console.log("latitude: " + position.coords.latitude + "\nlongitude: " + position.coords.longitude);
-			}, function(error) {
-				console.log('code: '    + error.code    + '\n' +
-	          'message: ' + error.message + '\n');
-			}, {timeout:5000});
-		}
-	}
-
-
 });
 
 	
