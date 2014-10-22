@@ -17,10 +17,6 @@ app.service('locationService', function($http) {
   			if (res.data.address && res.data.address.postcode){
   				this.newZip = res.data.address.postcode;
   				console.log(this.newZip)
-  				if (this.newZip != this.oldZip){
-  					alert("new zip code!");
-  					this.oldZip = this.newZip;
-  				}
   			}
   		});
 	}
