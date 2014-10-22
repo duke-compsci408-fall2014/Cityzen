@@ -11,6 +11,7 @@ app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
       title: ttle,
       message: msg,
       autoCancel: true,
+      icon :'ic_notification',
       json: '{"url": "http://cityzenapp.us/core/poll/study2.php"}'
       // parameter documentation:
       // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
