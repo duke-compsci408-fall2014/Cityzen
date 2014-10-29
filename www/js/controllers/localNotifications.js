@@ -20,6 +20,13 @@ app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
     });
   };
 
+  $scope.$on('onReminderClicked', function(event, id, state, json){
+    console.log('notification clicked, id: ' + id + ' state:' + state + ' json: ' + json);
+    addNotification('hello', 'hello');
+    var win = window.open('google.com', '_blank');
+    win.focus();
+  });
+
   $scope.cancelNotification = function () {
     $cordovaLocalNotification.cancel('some_notification_id').then(function () {
       console.log('callback for cancellation background notification');
