@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('loginCtrl', ['$scope', 'userService', function($scope, $window, userService) {
+app.controller('loginCtrl', function($scope, $window, userService) {
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
@@ -14,8 +14,8 @@ app.controller('loginCtrl', ['$scope', 'userService', function($scope, $window, 
 		else{
 			localStorage.setItem("username", username);
 			localStorage.setItem("password", password)
-			console.log("username" + localStorage.getItem("username"));
-			console.log("password" + localStorage.getItem("password"));
+			console.log("username: " + localStorage.getItem("username"));
+			console.log("password: " + localStorage.getItem("password"));
 		}
 
 	}
@@ -24,4 +24,4 @@ app.controller('loginCtrl', ['$scope', 'userService', function($scope, $window, 
 		//return to login page??
 	}
 
-}]);
+});

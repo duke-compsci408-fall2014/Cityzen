@@ -278,15 +278,17 @@
           <div class="list">
             <label class="item item-input">
               <span class="input-label">Username</span>
+              <input id="username">
               <input type="text">
             </label>
             <label class="item item-input">
               <span class="input-label">Password</span>
+              <input id="password">
               <input type="password">
             </label>
-          </div>
+          </div> 
           <div>
-            <a href="#/tab/polls" class="button button-full button-balanced">
+            <a href="#/tab/polls" class="button button-full button-balanced" ng-click="login()">
               Login
             </a>
             <button class="button button-block button-stable">
