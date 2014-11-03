@@ -12,8 +12,8 @@ app.service('userService', function($http) {
 		user: {}
 	};
 
-	this.login = function(userInfo) {
-
+	this.login = function(username, password) {
+		return true;
 	}
 
 	this.logout = function() {
@@ -46,7 +46,7 @@ app.service('userService', function($http) {
 		this.settings.notifications.cityId = 1;
 
 	
-		this.settings.user.first_name = "Will";
+		this.settings.user.first_name = "";
 		this.settings.user.last_name = "";
 		this.settings.user.address = "";
 	}
