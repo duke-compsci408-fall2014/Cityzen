@@ -1,7 +1,7 @@
 console.log('hello');
 //Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
 
-app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
+app.service('notificationService', function($scope, $cordovaLocalNotification) {
 
   $scope.addNotification = function (ttle, msg) {
     console.log('hello');
@@ -72,10 +72,6 @@ app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
   // event callbacks events `onadd`, `ontrigger`, `onclick` and `oncancel`
   // can be assigned like this:
   $cordovaLocalNotification.onadd = function (id, state, json) {};
-  $cordovaLocalNotification.onclick = function (id, state, json) {console.log('hello4434');};
-  window.plugin.notification.local.onclick = function (id, state, json) {console.log('hello22');var win = window.open('http://cityzenapp.us/core/poll/study2.php', '_blank');
-    win.focus();};
-
 
 });
 
