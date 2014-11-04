@@ -2,7 +2,6 @@
 
 
 app.controller('loginCtrl', function($scope, $window, userService) {
-	$scope.cannotLogin = true;
 
 	//example code
 	$scope.login = function () {
