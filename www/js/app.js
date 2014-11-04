@@ -88,11 +88,7 @@ app.run(function($rootScope, $ionicPlatform) {
     }
   });
 
-app.onReminderAdd = function(id, state, json) {
-  $timeout(function() {
-    $rootScope.$broadcast('onReminderClicked', id, state, json);
-  }, 100);
-}
+
 
 })
 
