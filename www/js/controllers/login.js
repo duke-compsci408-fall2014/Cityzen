@@ -21,9 +21,6 @@ app.controller('loginCtrl', function($scope, $window, userService) {
 		}
 
 	}
-	$scope.logout = function() {
-		localStorage.clear();
-		
-	}
+
 
 });

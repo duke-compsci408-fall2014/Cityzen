@@ -1,7 +1,7 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('SettingsCtrl',function($scope, $window, userService, locationService) {
+app.controller('SettingsCtrl', function($scope, $window, userService, locationService, $ionicPopup) {
 	console.log("SettingsCtrl");
 
 
@@ -48,6 +48,30 @@ app.controller('SettingsCtrl',function($scope, $window, userService, locationSer
 		}
 		userService.settings.notifications.categories = categories;
 	}
+
+
+	$scope.logout = function() {
+		var confirmPopup = $ionicPopup.confirm({
+     		title: 'Logout of Cityzen',
+     		template: 'Are you sure you want to logout?'
+   		});
+   		
+   		confirmPopup.then(function(res) {
+     		if(res) {
+
+       			
+       			localStorage.clear();
+
+       			$window.location.href = '/';
+
+       			//other stuff
+     		} else {
+       			//do nothing.
+     		}
+   		});
+		
+	}
+
 });
 
 	
