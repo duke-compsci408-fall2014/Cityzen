@@ -46,3 +46,6 @@ ionic run android
 ```
 
 From the app directory with the android virtual machine running.
+
+
+Plugins: cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
