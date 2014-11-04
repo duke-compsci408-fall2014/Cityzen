@@ -8,11 +8,14 @@ app.service('pollService', function($http) {
 	var URL = "http://www.cityzenapp.us/core/poll/";
 
 	this.getAllPolls = function(callback) {
-		var phpFile = "listpolls.php";
+		var phpFile = "listpolls2.php";
+		
 
 		return $http.get(URL+phpFile+"?callback=?").
   		success(function(data, status, headers, config) {
+  			console.log(data);
   			data = data.substr(1);
+  			console.log(JSON.parse(data));
   			//console.log(data);
   			//console.log(JSON.parse(data));
     		callback(JSON.parse(data));
