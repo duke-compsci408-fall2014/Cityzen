@@ -9,7 +9,11 @@ app.controller('PollsCtrl', ['$scope', 'pollService', function($scope, pollServi
 		$scope.polls = response;
 	});
 
-
+	$scope.openPollURL = function(URL) {
+		console.log(URL)
+		window.open(URL, '_system', 'location=yes');
+		return false;
+	}
 
 	
 	$scope.searchText = "";

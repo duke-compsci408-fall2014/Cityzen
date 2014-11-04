@@ -53,6 +53,7 @@
       /* This is an event */
       var my_on_login_redirect = function(args) {
         alert("You have logged in with " + args.provider.name + "\nUser Connection Token: " + args.connection.connection_token);
+        console.log(args);
       
         window.location.href = "#/tab/polls";
 
@@ -113,6 +114,7 @@
           <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
             <input type="search" placeholder="Search" ng-model="searchText">
+
           </label>
           <button class="button button-clear">
           Cancel
@@ -121,7 +123,8 @@
         <div> 
         </div>
         <div class="list">
-            <a ng-repeat="poll in polls | filter:searchText" class="item item-thumbnail-left" href="{{poll.trackback}}">
+            <a ng-repeat="poll in polls | filter:searchText" class="item item-thumbnail-left" 
+            ng-click="openPollURL(poll.trackback)">
               <img src="http://www.cityzenapp.us/core/poll/poll_{{poll.PollId}}.png">
               <h2> {{poll.name}} </h2>
               <p> {{poll.description}}</p>
