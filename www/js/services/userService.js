@@ -7,6 +7,8 @@ Changing settings
 
 */
 app.service('userService', function($http) {
+	var FRANCESCO_ID = 201;
+
 	this.settings = {
 		notifications: {},
 		user: {}
@@ -38,9 +40,9 @@ app.service('userService', function($http) {
 	this.resetDefaultSettings = function() {
 		//do we need this? ask server about
 		// settings or just have default?
-		this.settings.notifications.areOn = false;
-		this.settings.notifications.gpsOn = false;
-		this.settings.notifications.pushOn = false;
+		this.settings.notifications.areOn = true;
+		this.settings.notifications.gpsOn = true;
+		this.settings.notifications.pushOn = true;
 
 		this.settings.notifications.categories = getNotificationCategories();
 		this.settings.notifications.cityId = 1;
