@@ -117,14 +117,12 @@
           <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
             <input type="search" placeholder="Search" ng-model="searchText">
-
           </label>
           <button class="button button-clear">
           Cancel
           </button>
         </div>
-        <div> 
-        </div>
+        
         <div class="list">
             <a ng-repeat="poll in polls | filter:searchText" class="item item-thumbnail-left" 
             ng-click="openPollURL(poll.trackback)">
