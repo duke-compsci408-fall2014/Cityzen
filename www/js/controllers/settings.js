@@ -1,7 +1,7 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('SettingsCtrl', function($scope, $window, userService, locationService, $ionicPopup) {
+app.controller('SettingsCtrl', function($scope, $window, userService, locationService, notificationService, $ionicPopup) {
 	console.log("SettingsCtrl");
 
 
@@ -25,7 +25,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 				$window.navigator.geolocation.watchPosition(function(position) {
 					locationService.getZipCode(position);					
 	  				if (locationService.newZip != locationService.oldZip && locationService.oldZip != null){
-	  					alert("New zip code!");
+	  					notificationService.addNotification("New zip code!", "You have entered a new location");
 	  					locationService.oldZip = locationService.newZip;
 	  				}
 				}, function(error) {
