@@ -73,8 +73,7 @@ app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
   // can be assigned like this:
   $cordovaLocalNotification.onadd = function (id, state, json) {};
   $cordovaLocalNotification.onclick = function (id, state, json) {console.log('hello4434');};
-  window.plugin.notification.local.onclick = function (id, state, json) {console.log('hello22');var win = window.open('http://cityzenapp.us/core/poll/study2.php', '_self');
-    win.focus();};
+  window.plugin.notification.local.onclick = function (id, state, json) {console.log('hello22'); window.location.href = '#/tab/notifications';};
 
 
 });
