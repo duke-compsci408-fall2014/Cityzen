@@ -2,6 +2,8 @@
 
 
 app.controller('loginCtrl', function($scope, $window, userService) {
+	$scope.cannotLogin = true;
+
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
@@ -21,7 +23,7 @@ app.controller('loginCtrl', function($scope, $window, userService) {
 	}
 	$scope.logout = function() {
 		localStorage.clear();
-		//return to login page??
+		
 	}
 
 });
