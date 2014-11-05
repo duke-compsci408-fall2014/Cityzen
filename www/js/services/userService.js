@@ -67,4 +67,6 @@ app.service('userService', function($http) {
 
 	this.resetDefaultSettings();
 
+
 });
+
