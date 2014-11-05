@@ -1,23 +1,25 @@
 console.log('hello');
 //Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
 
-app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification) {
+app.controller('NotificationCtrl', function($scope, $cordovaLocalNotification, notificationService) {
 
   $scope.addNotification = function (ttle, msg) {
-    console.log('hello');
-    console.log($cordovaLocalNotification);
-    $cordovaLocalNotification.add({
-      id: 'some_notification_id',
-      title: ttle,
-      message: msg,
-      autoCancel: true,
-      icon :'ic_notification',
-      json: '{"url": "http://cityzenapp.us/core/poll/study2.php"}'
-      // parameter documentation:
-      // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
-    }).then(function () {
-      console.log('callback for adding background notification');
-    });
+    notificationService.addNotification(ttle, msg);
+
+    // console.log('hello');
+    // console.log($cordovaLocalNotification);
+    // $cordovaLocalNotification.add({
+    //   id: 'some_notification_id',
+    //   title: ttle,
+    //   message: msg,
+    //   autoCancel: true,
+    //   icon :'ic_notification',
+    //   json: '{"url": "http://cityzenapp.us/core/poll/study2.php"}'
+    //   // parameter documentation:
+    //   // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
+    // }).then(function () {
+    //   console.log('callback for adding background notification');
+    // });
   };
 
   $scope.$on('onReminderClicked', function(event, id, state, json){

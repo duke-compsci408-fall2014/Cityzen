@@ -3,55 +3,52 @@ Define all the functionality required for polls
 Viewing polls
 
 */
-app.service('pollService', function($http) {
+app.service('pollService', function($http, $timeout) {
 
 	var URL = "http://www.cityzenapp.us/core/poll/";
+	var TIMEOUT = 10000;
 
-	this.getAllPolls = function(callback) {
+
+	function getPolls(callback) {
 		var phpFile = "listpolls2.php";
-		
-
 		return $http.get(URL+phpFile+"?callback=?").
-  		success(function(data, status, headers, config) {
-  			console.log(data);
+  		success(function(data) {
   			data = data.substr(1);
-  			console.log(JSON.parse(data));
   			//console.log(data);
   			//console.log(JSON.parse(data));
     		callback(JSON.parse(data));
   		}).
-  		error(function(data, status, headers, config) {
+  		error(function(data) {
     		console.log("CANNOT GET THE POLLS HALP");
   		});
-
-		//get all polls with HTTP request...
-
-		// poll1 = {
-		// 	id: 1,
-		// 	name: "Should LA citizens be paid to vote in city elections?",
-		// 	description: "Some believe the incentives could help turnout, others say this would send the wrong message.",
-		// 	customerid: 1,
-		// 	trackback: "http://southerngatewaystudy.com",
-		// 	socialpost: null
-		// };
-		// poll2 = {
-		// 	id: 2,
-		// 	name: "Gateway Improvement",
-		// 	description: "Raleigh seeks to improve the city's Southern Gateway along South Saunders Street.  Which one of these could help most?",
-		// 	customerid: 1,
-		// 	trackback: "http://southerngatewaystudy.com",
-		// 	socialpost: "727876970594007"
-		// };
-		// poll3 = {
-		// 	id: 3,
-		// 	name: "South Saunders Improvement",
-		// 	description: "Should the city improve the bicycle & pedestrian experience along South Saunders Street, even if it meant traffic delays?",
-		// 	customerid: 1,
-		// 	trackback: "http://southerngatewaystudy.com",
-		// 	socialpost: "727892827259088"
-		// };
-		// return [poll1, poll2, poll3]
 	}
+
+	this.getAllPolls = getPolls;
+
+	/*
+	* Poll database for new polls. 
+	*/
+	// this.cache = {polls: [], calls: 0};
+	// var that = this; //better way that this?
+	// var updatePollsConstantly = function() {
+	// 	getPolls(function(response) {
+	// 		that.cache.polls = response;
+
+	// 		that.cache.calls++;
+	// 		console.log(that.cache.calls);
+	// 		$timeout(updatePollsConstantly, TIMEOUT);
+	// 	});
+		
+	// }
+	// updatePollsConstantly();
+
+	// this.pollListEquality = function(before, after) {
+	// 	return before.length == after.length;
+	// }
+	/*
+	*Above logic should be abstracted somehow because is reused. 
+	*/
+
 
 	this.getPollsByCity = function(cityName) {
 		//get polls by city
@@ -60,6 +57,7 @@ app.service('pollService', function($http) {
 	this.getPollsByUserId = function(userId) {
 		//get all polls for a specific user
 	}
+
 	
 
 
