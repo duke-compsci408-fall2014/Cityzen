@@ -7,6 +7,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 
 	//get persisted settings
 	$scope.settings = userService.settings;
+	$scope.watchId;
 	
 
 	$scope.toggleNotifications = function() {
@@ -20,9 +21,11 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 
 	$scope.toggleGPSNotifications = function() {
 		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
+		//turn on or off watchPosition
 		if(userService.settings.notifications.gpsOn){
-	  		if (window.navigator.geolocation != null) {
-				$window.navigator.geolocation.watchPosition(function(position) {
+			//if GPS is enable, otherwise, notify
+	  		if (window.navigator.geolocation) {
+				$scope.watchId = $window.navigator.geolocation.watchPosition(function(position) {
 					locationService.getZipCode(position);					
 	  				if (locationService.newZip != locationService.oldZip && locationService.oldZip != null){
 	  					notificationService.addNotification("New zip code!", "You have entered a new location");
@@ -33,6 +36,17 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 		          'message: ' + error.message + '\n');
 				}, {timeout:5000});
 			}
+			else{
+				var alertLocationDisabled = $ionicPopup.alert({
+	     			title: 'GPS is not enabled on your device',
+	    			template: 'Cityzen is unable to send GPS notifications'
+	   				});
+	   			alertLocationDisabled.then(function(res) {
+	  			});
+			}
+		}
+		else{
+			$window.navigator.geolocation.clearWatch(watchId);
 		}
 	}
 
