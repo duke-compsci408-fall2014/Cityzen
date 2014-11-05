@@ -53,7 +53,7 @@ app.service('userService', function($http) {
 		//do we need this? ask server about
 		// settings or just have default?
 		this.settings.notifications.areOn = true;
-		this.settings.notifications.gpsOn = true;
+		this.settings.notifications.gpsOn = false;
 		this.settings.notifications.pushOn = true;
 
 		this.settings.notifications.categories = getNotificationCategories();
