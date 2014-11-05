@@ -48,5 +48,9 @@ ionic run android
 From the app directory with the android virtual machine running.
 
 
-Plugins: cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
-         cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=CityzenMobile
+Plugins: 
+  ```
+    cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+    cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=CityzenMobile
+    cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git && cordova prepare
+  ```

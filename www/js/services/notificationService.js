@@ -1,9 +1,9 @@
 console.log('hello');
 //Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
 
-app.service('notificationService', function($scope, $cordovaLocalNotification) {
+app.service('notificationService', function($cordovaLocalNotification) {
 
-  $scope.addNotification = function (ttle, msg) {
+  this.addNotification = function (ttle, msg) {
     console.log('hello');
     console.log($cordovaLocalNotification);
     $cordovaLocalNotification.add({
@@ -20,44 +20,44 @@ app.service('notificationService', function($scope, $cordovaLocalNotification) {
     });
   };
 
-  $scope.$on('onReminderClicked', function(event, id, state, json){
-    console.log('notification clicked, id: ' + id + ' state:' + state + ' json: ' + json);
-    addNotification('hello', 'hello');
-    var win = window.open('google.com', '_blank');
-    win.focus();
-  });
+  // this.$on('onReminderClicked', function(event, id, state, json){
+  //   console.log('notification clicked, id: ' + id + ' state:' + state + ' json: ' + json);
+  //   addNotification('hello', 'hello');
+  //   var win = window.open('google.com', '_blank');
+  //   win.focus();
+  // });
 
-  $scope.cancelNotification = function () {
+  this.cancelNotification = function () {
     $cordovaLocalNotification.cancel('some_notification_id').then(function () {
       console.log('callback for cancellation background notification');
     });
   };
 
-  $scope.cancelAllNotification = function () {
+  this.cancelAllNotification = function () {
     $cordovaLocalNotification.cancelAll().then(function () {
       console.log('callback for canceling all background notifications');
     });
   };
 
-  $scope.checkIfIsScheduled = function () {
+  this.checkIfIsScheduled = function () {
     $cordovaLocalNotification.isScheduled('some_notification_id').then(function (isScheduled) {
       console.log(isScheduled);
     });
   };
 
-  $scope.getNotificationIds = function () {
+  this.getNotificationIds = function () {
     $cordovaLocalNotification.getScheduledIds().then(function (scheduledIds) {
       console.log(scheduledIds);
     });
   };
 
-  $scope.checkIfIsTriggered = function () {
+  this.checkIfIsTriggered = function () {
     $cordovaLocalNotification.isTriggered('some_notification_id').then(function (isTriggered) {
       console.log(isTriggered);
     });
   };
 
-  $scope.getTriggeredIds = function () {
+  this.getTriggeredIds = function () {
     $cordovaLocalNotification.getTriggeredIds().then(function (triggeredIds) {
       console.log(triggeredIds);
     });
@@ -65,7 +65,7 @@ app.service('notificationService', function($scope, $cordovaLocalNotification) {
 
   // $scope.notificationDefaults = $cordovaLocalNotification.getDefaults();
 
-  $scope.setDefaultOptions = function () {
+  this.setDefaultOptions = function () {
     $cordovaLocalNotification.setDefaults({ autoCancel: true });
   };
 
