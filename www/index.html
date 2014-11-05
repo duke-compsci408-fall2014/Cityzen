@@ -144,7 +144,7 @@
         <ion-content>
           <div class="list">
              <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback, notification.id)" ng-class="{0:'item item-light', 1:'item item-stable'}[notification.read]">
-              <h2>{{notification.title}} {{notification.read}}</h2>
+              <h2>{{notification.title}}</h2>
               <p>{{notification.description}}</p>
             </a>
           </div>
