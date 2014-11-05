@@ -1,14 +1,9 @@
-/*
-Define all the functionality required for polls
-Viewing polls
-
-*/
-app.service('pollService', function($http, $timeout) {
+app.factory('pollUpdater', function($http, $timeout) {
 
 	var URL = "http://www.cityzenapp.us/core/poll/";
-	var TIMEOUT = 10000;
+	var TIMEOUT = 5000;
 
-
+	var cache = {polls: [], calls: 0};
 	function getPolls(callback) {
 		var phpFile = "listpolls2.php";
 		return $http.get(URL+phpFile+"?callback=?").
@@ -25,37 +20,26 @@ app.service('pollService', function($http, $timeout) {
 
 	this.getAllPolls = getPolls;
 
+	
+
 	/*
 	* Poll database for new polls. 
 	*/
-	this.cache = {polls: [], calls: 0};
-	var that = this; //better way that this?
+	cache = {polls: [], calls: 0}; //better way that this?
 	var updatePollsConstantly = function() {
 		getPolls(function(response) {
-			that.cache.polls = response;
-
-			that.cache.calls++;
-			console.log(that.cache.calls);
+			cache.polls = response;
+			cache.calls++;
+			console.log(cache.polls);
 			$timeout(updatePollsConstantly, TIMEOUT);
 		});
 		
 	}
 	updatePollsConstantly();
 
-	this.pollListEquality = function(before, after) {
-		return before.length == after.length;
-	}
 
-
-	this.getPollsByCity = function(cityName) {
-		//get polls by city
-	}
-
-	this.getPollsByUserId = function(userId) {
-		//get all polls for a specific user
-	}
-
-	
+	return cache
 
 
 });
+

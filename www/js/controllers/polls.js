@@ -1,16 +1,20 @@
 'use strict';
 
 //var app = angular.module('cityzen', ['ionic'])
-app.controller('PollsCtrl', ['$scope', 'pollService', '$ionicLoading', function($scope, pollService, $ionicLoading) {
+app.controller('PollsCtrl', ['$scope', 'pollService', '$ionicLoading','$timeout', function($scope, pollService, $ionicLoading, $timeout) {
 
 	$scope.polls = null;
 
-	pollService.getAllPolls(function(response) {
-		$scope.polls = response;
-		$scope.hide();
-	});
+	$scope.$watch(function(){
+		return pollService.cache.polls;
+	}, 
+	function(newValue, oldValue) {
+		if ($scope.polls == null) {
+			$ionicLoading.hide();
+		}
+		$scope.polls = pollService.cache.polls;
 
-
+	}, pollService.pollListEquality);
 
 	$scope.openPollURL = function(URL) {
 		console.log(URL)

@@ -18,9 +18,8 @@ app.service('userService', function($http) {
 		return true;
 	}
 
-	this.logout = function() {
 
-	}
+	
 
 	function getNotificationCategories() {
 		//ask server?
