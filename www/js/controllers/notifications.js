@@ -6,9 +6,9 @@ app.controller('NotificationsCtrl', function($scope, $window, userService, notif
 		return notificationService.cache.notifications;
 	}, 
 	function(newValue, oldValue) {
-		if ($scope.notifications != null) {
-			var lastIndex = newValue.length-1;
-			var newNotif = newValue[lastIndex];
+		if ($scope.notifications != null && newValue.length > oldValue.length) {
+			var newNotif = newValue[0];
+
 			notificationService.addNotification(newNotif.title, newNotif.description);
 			//we should also pass in other information but I don't want to change
 			//the method signature at this moment. 

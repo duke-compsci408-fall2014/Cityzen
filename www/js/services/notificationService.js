@@ -27,7 +27,6 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   var updateNotificationsConstantly = function() {
     getNotifications(function(response) {
       that.cache.notifications = response;
-      console.log(response);
       that.cache.calls++;
       console.log(that.cache.calls);
       $timeout(updateNotificationsConstantly, TIMEOUT);
