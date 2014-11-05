@@ -8,6 +8,10 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   var URL = "http://www.cityzenapp.us/core/";
   var TIMEOUT = 15000;
 
+  this.notificationListEquality = function(before, after) {
+    return before.length == after.length;
+  }
+
   var getNotifications = function(callback){
     var phpFile = "listnotifications.php";
     return $http.get(URL+phpFile+"?callback=?").
@@ -26,7 +30,9 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   var that = this; //better way that this?
   var updateNotificationsConstantly = function() {
     getNotifications(function(response) {
-      that.cache.notifications = response;
+      if (!that.notificationListEquality(response, that.cache.notifications)){
+        that.cache.notifications = response;
+      }
       that.cache.calls++;
       console.log(that.cache.calls);
       $timeout(updateNotificationsConstantly, TIMEOUT);
@@ -39,9 +45,7 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   * DUPLICATE CODE ^^^^^ :(
   */
 
-  this.notificationListEquality = function(before, after) {
-    return before.length == after.length;
-  }
+
 
 
 
