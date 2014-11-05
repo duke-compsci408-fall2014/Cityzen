@@ -6,7 +6,7 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   * Poll database for new notifs. 
   */
   var URL = "http://www.cityzenapp.us/core/";
-  var TIMEOUT = 10000;
+  var TIMEOUT = 15000;
 
   var getNotifications = function(callback){
     var phpFile = "listnotifications.php";
