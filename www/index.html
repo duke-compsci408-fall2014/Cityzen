@@ -37,6 +37,7 @@
     <script src="js/controllers/header.js"></script>
     <script src="js/controllers/polls.js"></script>
     <script src="js/controllers/settings.js"></script>
+    <script src="js/controllers/notifications.js"></script>
     <script src="js/controllers/localNotifications.js"></script>
 
     <script type="text/javascript">
@@ -48,12 +49,13 @@
       var oa = document.createElement('script');
       oa.type = 'text/javascript'; oa.async = true;
       oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js'
+      console.log('Connect to API');
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(oa, s)
         
       /* This is an event */
       var my_on_login_redirect = function(args) {
-        alert("You have logged in with " + args.provider.name + "\nUser Connection Token: " + args.connection.connection_token);
+        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
         console.log(args);
       
         window.location.href = "#/tab/polls";
@@ -67,10 +69,13 @@
         
       /* Social Login Example */
       _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
+      console.log('set providers');
       _oneall.push(['social_login', 'set_grid_sizes', [3,1]]);
       _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
+      console.log('set callback');
       _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
       _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
+      console.log('Render UI');
 
 
     </script>
@@ -138,6 +143,19 @@
 
     </script>
 
+    <script id="templates/notifications.html" type="text/ng-template">
+      <ion-view title="Notifications">
+        <ion-content>
+          <div class="list">
+             <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback, notification.id)" ng-class="{0:'item item-light', 1:'item item-stable'}[notification.read]">
+              <h2>{{notification.title}}</h2>
+              <p>{{notification.description}}</p>
+            </a>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Home">
         <ion-content class="padding">
@@ -196,34 +214,7 @@
       </ion-view>
     </script>
 
-    <script id="templates/notifications.html" type="text/ng-template">
-      <ion-view title="Notifications">
-        <ion-content>
-          <div class="list">
-            <div class="card">
-              <div class="item item-text-wrap" href="#/tabs/about">
-                Project "Project Name" is happening in your location!
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              Project "Project Name" that you voted for has been approved. <a href="#">See the results.</a>
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              A new project of the category "Roads" is underway. 
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              Project "Project Name" is happening in your location. 
-              </div>
-            </div>
-          </div>
-        </ion-content>
-      </ion-view>
-    </script>
+
 
 
 
@@ -317,26 +308,34 @@
           <div class="list">
             <label class="item item-input">
               <span class="input-label">Username</span>
-              <input id="username">
-              <input type="text">
+              <input type="text" id="username">
             </label>
             <label class="item item-input">
               <span class="input-label">Password</span>
-              <input id="password">
-              <input type="password">
+              <input type="password" id="password">
             </label>
           </div> 
           <div>
-            <a href="#/tab/polls" class="button button-full button-balanced" ng-click="login()">
+            <button class="button button-full button-balanced" ng-click="login()">
               Login
-            </a>
-            <button class="button button-block button-stable">
+            </button>
+            <button class="button button-block button-stable" ng-click="register()">
               Register
             </button>
             <hr>
           </div>
           
-          <div>Hi</div>
+          <div id="social_no_work">
+            <button class="button button-block button-positive">
+                Connect with Facebook
+            </button>
+            <button class="button button-block button-assertive">
+                Connect with Google+
+            </button>
+            <button class="button button-block button-calm">
+                Connect with Twitter
+            </button>
+          </div>
           <div id="social_login_buttons"></div>
         </ion-content>
       </ion-view>
