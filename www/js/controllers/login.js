@@ -31,5 +31,18 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 
 	}
 
+	$scope.register = function(){
+		console.log("begin register");
+		var registerSuccess = $ionicPopup.alert({
+     			title: 'Registration Successful'
+   			});
+   		
+   			registerSuccess.then(function(res) {
+       			window.location.href = "#/tab/polls";
+   			});
+	
+
+	}
+
 
 });
