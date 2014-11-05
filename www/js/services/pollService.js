@@ -28,23 +28,26 @@ app.service('pollService', function($http, $timeout) {
 	/*
 	* Poll database for new polls. 
 	*/
-	this.cache = {polls: [], calls: 0};
-	var that = this; //better way that this?
-	var updatePollsConstantly = function() {
-		getPolls(function(response) {
-			that.cache.polls = response;
+	// this.cache = {polls: [], calls: 0};
+	// var that = this; //better way that this?
+	// var updatePollsConstantly = function() {
+	// 	getPolls(function(response) {
+	// 		that.cache.polls = response;
 
-			that.cache.calls++;
-			console.log(that.cache.calls);
-			$timeout(updatePollsConstantly, TIMEOUT);
-		});
+	// 		that.cache.calls++;
+	// 		console.log(that.cache.calls);
+	// 		$timeout(updatePollsConstantly, TIMEOUT);
+	// 	});
 		
-	}
-	updatePollsConstantly();
+	// }
+	// updatePollsConstantly();
 
-	this.pollListEquality = function(before, after) {
-		return before.length == after.length;
-	}
+	// this.pollListEquality = function(before, after) {
+	// 	return before.length == after.length;
+	// }
+	/*
+	*Above logic should be abstracted somehow because is reused. 
+	*/
 
 
 	this.getPollsByCity = function(cityName) {

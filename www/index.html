@@ -37,6 +37,7 @@
     <script src="js/controllers/header.js"></script>
     <script src="js/controllers/polls.js"></script>
     <script src="js/controllers/settings.js"></script>
+    <script src="js/controllers/notifications.js"></script>
     <script src="js/controllers/localNotifications.js"></script>
 
     <script type="text/javascript">
@@ -138,6 +139,19 @@
 
     </script>
 
+    <script id="templates/notifications.html" type="text/ng-template">
+      <ion-view title="Notifications">
+        <ion-content>
+          <div class="list">
+             <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback)"class="item">
+              <h2>{{notification.title}}</h2>
+              <p>{{notification.description}}</p>
+            </a>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Home">
         <ion-content class="padding">
@@ -196,34 +210,7 @@
       </ion-view>
     </script>
 
-    <script id="templates/notifications.html" type="text/ng-template">
-      <ion-view title="Notifications">
-        <ion-content>
-          <div class="list">
-            <div class="card">
-              <div class="item item-text-wrap" href="#/tabs/about">
-                Project "Project Name" is happening in your location!
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              Project "Project Name" that you voted for has been approved. <a href="#">See the results.</a>
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              A new project of the category "Roads" is underway. 
-              </div>
-            </div>
-            <div class="card">
-              <div class="item item-text-wrap">
-              Project "Project Name" is happening in your location. 
-              </div>
-            </div>
-          </div>
-        </ion-content>
-      </ion-view>
-    </script>
+
 
 
 

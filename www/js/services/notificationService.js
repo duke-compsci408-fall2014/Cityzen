@@ -1,7 +1,50 @@
-console.log('hello');
-//Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
 
-app.service('notificationService', function($cordovaLocalNotification) {
+//Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
+app.service('notificationService', function($cordovaLocalNotification, $timeout, $http) {
+  console.log('hello');
+  /*
+  * Poll database for new notifs. 
+  */
+  var URL = "http://www.cityzenapp.us/core/";
+  var TIMEOUT = 10000;
+
+  var getNotifications = function(callback){
+    var phpFile = "listnotifications.php";
+    return $http.get(URL+phpFile+"?callback=?").
+      success(function(data) {
+        data = data.substr(1);
+        //console.log(data);
+        //console.log(JSON.parse(data));
+        callback(JSON.parse(data));
+      }).
+      error(function(data) {
+        console.log("CANNOT GET THE NOTIFS HALP");
+      });
+  }
+    
+  this.cache = {notifications: [], calls: 0};
+  var that = this; //better way that this?
+  var updateNotificationsConstantly = function() {
+    getNotifications(function(response) {
+      that.cache.notifications = response;
+      console.log(response);
+      that.cache.calls++;
+      console.log(that.cache.calls);
+      $timeout(updateNotificationsConstantly, TIMEOUT);
+    });
+    
+  }
+  updateNotificationsConstantly();
+
+  /*
+  * DUPLICATE CODE ^^^^^ :(
+  */
+
+  this.notificationListEquality = function(before, after) {
+    return before.length == after.length;
+  }
+
+
 
   this.addNotification = function (ttle, msg) {
     console.log('hello');

@@ -4,17 +4,11 @@
 app.controller('PollsCtrl', ['$scope', 'pollService', '$ionicLoading','$timeout', function($scope, pollService, $ionicLoading, $timeout) {
 
 	$scope.polls = null;
-
-	$scope.$watch(function(){
-		return pollService.cache.polls;
-	}, 
-	function(newValue, oldValue) {
-		if ($scope.polls == null) {
-			$ionicLoading.hide();
-		}
-		$scope.polls = pollService.cache.polls;
-
-	}, pollService.pollListEquality);
+	
+	pollService.getAllPolls(function(response){
+		$scope.polls = response;
+		$ionicLoading.hide();
+	})
 
 	$scope.openPollURL = function(URL) {
 		console.log(URL)

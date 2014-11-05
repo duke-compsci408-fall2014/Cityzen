@@ -39,7 +39,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/notifications",
       views: {
         'notifications-tab': {
-          templateUrl: "templates/notifications.html"
+          templateUrl: "templates/notifications.html",
+          controller: "NotificationsCtrl"
         }
       }
     })
@@ -71,7 +72,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })
 
 
-app.run(function($rootScope, $ionicPlatform) {
+app.run(function($rootScope, $ionicPlatform, notificationService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
