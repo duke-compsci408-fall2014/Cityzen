@@ -8,6 +8,11 @@ Changing settings
 */
 app.service('userService', function($http) {
 	var FRANCESCO_ID = 201;
+	var currUsers = [
+		{user: 'Connor', pass: 'connor'},
+		{user: 'Hailey', pass: 'hailey'},
+		{user: 'Francesco', pass: 'francesco'}
+	];
 
 	this.settings = {
 		notifications: {},
@@ -15,7 +20,15 @@ app.service('userService', function($http) {
 	};
 
 	this.login = function(username, password) {
-		return true;
+		console.log('begin func');
+		for (i = 0; i < currUsers.length; i++){
+			console.log(i);
+			if(currUsers[i].user == username && currUsers[i].pass == password){
+				console.log('yes');
+				return true;
+			}
+		}
+		return false;
 	}
 
 
