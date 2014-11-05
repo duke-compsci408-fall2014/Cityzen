@@ -11,7 +11,6 @@ app.controller('NotificationsCtrl', function($scope, $window, userService, notif
 			console.log("the watcher thinks the notifs have changed");
 			var newNotif = newValue[0];
 
-			notificationService.addNotification(newNotif.title, newNotif.description);
 			//we should also pass in other information but I don't want to change
 			//the method signature at this moment. 
 		} else {
