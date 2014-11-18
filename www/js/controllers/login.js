@@ -28,8 +28,11 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 			console.log("password: " + localStorage.getItem("password"));
 			window.location.href = "#/tab/polls";
 		}
-
 	}
+
+
+
+
 
 	$scope.register = function(){
 		console.log("begin register");
@@ -40,9 +43,32 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
    			registerSuccess.then(function(res) {
        			window.location.href = "#/tab/polls";
    			});
-	
-
 	}
 
+
+
+	// // Ugly OneAll code
+	// /* This is an event */
+ //      var my_on_login_redirect = function(args) {
+ //        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
+ //        console.log(args);
+      
+ //        window.location.href = "#/tab/polls";
+
+ //        /* As this is a demo return false to cancel the redirection to the callback_uri */
+ //        return false;
+ //      }
+        
+ //      /* Initialise the asynchronous queue */
+ //      var _oneall = _oneall || [];
+        
+ //       Social Login Example 
+ //      _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
+ //      console.log('set providers');
+ //      _oneall.push(['social_login', 'set_grid_sizes', [3,1]]);
+ //      _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
+ //      console.log('set callback');
+ //      _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
+ //      _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
 
 });
