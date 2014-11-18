@@ -42,46 +42,6 @@
     <script src="js/controllers/notifications.js"></script>
     <script src="js/controllers/localNotifications.js"></script>
 
-    <script type="text/javascript">
-  
-      /* Replace the subdomain with your own subdomain from a Site in your OneAll account */   
-      var oneall_subdomain = 'cityzen';
-       
-      /* Asynchronously load the library */
-      var oa = document.createElement('script');
-      oa.type = 'text/javascript'; oa.async = true;
-      oa.src = 'lib/oneall/library.js'
-      console.log('Connect to API');
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(oa, s)
-        
-      /* This is an event */
-      var my_on_login_redirect = function(args) {
-        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
-        console.log(args);
-      
-        window.location.href = "#/tab/polls";
-
-        /* As this is a demo return false to cancel the redirection to the callback_uri */
-        return false;
-      }
-        
-      /* Initialise the asynchronous queue */
-      var _oneall = _oneall || [];
-        
-      /* Social Login Example */
-      _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
-      console.log('set providers');
-      _oneall.push(['social_login', 'set_grid_sizes', [3,1]]);
-      _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
-      console.log('set callback');
-      _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
-      _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
-      console.log('Render UI');
-
-
-    </script>
-
   </head>
 
   <body>
@@ -326,7 +286,6 @@
             </button>
             <hr>
           </div>
-          
           <div id="social_no_work">
             <button class="button button-block button-positive">
                 Connect with Facebook
