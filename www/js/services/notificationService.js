@@ -31,9 +31,16 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   var updateNotificationsConstantly = function() {
     getNotifications(function(response) {
       if (!that.notificationListEquality(response, that.cache.notifications)){
+        var newLength = response.length;
+        var oldLength = that.cache.notifications.length;
+
         that.cache.notifications = response;
-        if (response.length > that.cache.notifications.length){
+        console.log("something in the notifs has changed!");
+        console.log(response);
+        console.log(that.cache.notifications);
+        if (newLength > oldLength){
           var newNotif = response[0];
+          console.log("about to notify");
           that.addNotification(newNotif.title, newNotif.description);
         }
       }
