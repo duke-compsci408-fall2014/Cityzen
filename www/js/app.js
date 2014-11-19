@@ -30,8 +30,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/about",
       views: {
         'about-tab': {
-          templateUrl: "templates/about.html",
-          controller: "NotificationCtrl"
+          templateUrl: "templates/about.html"
         }
       }
     })

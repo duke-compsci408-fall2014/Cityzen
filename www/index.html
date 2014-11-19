@@ -95,7 +95,7 @@
       <ion-tabs class="tabs-icon-top tabs-positive">
 
 
-        <ion-tab title="Polls" icon="ion-navicon-round" ui-sref="tabs.polls">
+        <ion-tab title="Topics" icon="ion-navicon-round" ui-sref="tabs.polls">
           <ion-nav-view name="polls-tab"></ion-nav-view>
         </ion-tab>
 
@@ -145,7 +145,7 @@
       <ion-view title="Notifications">
         <ion-content>
           <div class="list">
-             <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback, notification.id)" ng-class="{0:'item item-light', 1:'item item-stable'}[notification.read]">
+             <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback, notification.id)" ng-class="{0:'item item-light', 1:'item item-gray'}[notification.read]">
               <h2>{{notification.title}}</h2>
               <p>{{notification.description}}</p>
             </a>
@@ -203,7 +203,7 @@
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
         <ion-content class="padding">
-          <iframe seamless class="fullscreen" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
+          <iframe height="89%" width="100%" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
         </ion-content>
       </ion-view>
     </script>
