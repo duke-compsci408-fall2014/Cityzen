@@ -8,7 +8,13 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 		console.log("begin login");
 		var username = document.getElementById('username').value
 		var password = document.getElementById('password').value
-		var userToken = userService.login(username, password, getUserID);
+		userService.authenticate(username, password, loginWithUserID);		
+	}
+
+	var loginWithUserID = function(data){
+		var userToken = parseInt(data);
+		console.log('callback!');
+		console.log('userId=' + userToken)
 		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
      			title: 'Login Fail',
@@ -21,16 +27,17 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
        			
    			});
 		}
+		else if (userToken == 0){
+			var loginFail = $ionicPopup.alert({
+     			title: 'Unable to Login',
+     			template: 'You are currently not connected to the internet. Please try again later.'
+   			});
+		}
 		else{
 			localStorage.setItem("userID", userToken);
 			console.log("userID: " + localStorage.getItem("userID"));
 			window.location.href = "#/tab/polls";
 		}
-	}
-
-	var getUserID = function(data){
-		console.log('callback!');
-		console.log('userId=' + data)
 	}
 
 	$scope.register = function(){

@@ -19,7 +19,7 @@ app.service('userService', function($http) {
 		user: {}
 	};
 
-	this.login = function(username, password, callback) {
+	this.authenticate = function(username, password, callback) {
 		var userToken = 0;
 		return $http.get("http://cityzenapp.us/core/auth.php?user="+ username + "&pass=" + password +"&callback=?").
   		success(function(data) {
