@@ -14,6 +14,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 	var loginWithUserID = function(data){
 		var userToken = parseInt(data);
 		console.log('callback!');
+		userService.userID = userToken;
 		console.log('userId=' + userToken)
 		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
@@ -36,6 +37,12 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 		else{
 			localStorage.setItem("userID", userToken);
 			console.log("userID: " + localStorage.getItem("userID"));
+			if(localStorage.getItem(userToken) != null){
+				userService.settings = JSON.parse(localStorage.getItem(userToken))
+			}
+			else{
+				console.log("userId is null")
+			}
 			window.location.href = "#/tab/polls";
 		}
 	}

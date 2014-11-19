@@ -69,6 +69,8 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
    		confirmPopup.then(function(res) {
      		if(res) {
        			localStorage.clear();
+       			var userData = JSON.stringify(userService.settings);
+       			localStorage.setItem(userService.userID, userData);
        			$window.location.href = '';
        			//other stuff
      		} else {

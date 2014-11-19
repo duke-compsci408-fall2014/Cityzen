@@ -7,13 +7,7 @@ Changing settings
 
 */
 app.service('userService', function($http) {
-	var FRANCESCO_ID = 201;
-	var currUsers = [
-		{user: 'Connor', pass: 'connor'},
-		{user: 'Hailey', pass: 'hailey'},
-		{user: 'Francesco', pass: 'francesco'}
-	];
-
+	this.userID;
 	this.settings = {
 		notifications: {},
 		user: {}
@@ -25,12 +19,14 @@ app.service('userService', function($http) {
   		success(function(data) {
   			data = data.substr(1);
   			console.log(data);
+  			this.userID = data;
     		callback(Number(data));
   		}).
   		error(function(data) {
   			data = data.substring(1);
   			console.log('error');
   			console.log(data);
+  			this.userID = data;
   			callback(Number(data));
   		});
 		// console.log('begin func');
@@ -79,7 +75,6 @@ app.service('userService', function($http) {
 		// settings or just have default?
 		this.settings.notifications.areOn = true;
 		this.settings.notifications.gpsOn = false;
-		this.settings.notifications.pushOn = true;
 
 		this.settings.notifications.categories = getNotificationCategories();
 		this.settings.notifications.cityId = 1;
