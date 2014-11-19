@@ -18,6 +18,8 @@
     <!-- ngcordova -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
+    <!-- oneall -->
+    <!--script src="lib/oneall/library.js"></script-->
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -39,7 +41,6 @@
     <script src="js/controllers/settings.js"></script>
     <script src="js/controllers/notifications.js"></script>
     <script src="js/controllers/localNotifications.js"></script>
-
     <script type="text/javascript">
   
       /* Replace the subdomain with your own subdomain from a Site in your OneAll account */   
@@ -59,7 +60,6 @@
         console.log(args);
       
         window.location.href = "#/tab/polls";
-
         /* As this is a demo return false to cancel the redirection to the callback_uri */
         return false;
       }
@@ -70,14 +70,12 @@
       /* Social Login Example */
       _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
       console.log('set providers');
-      _oneall.push(['social_login', 'set_grid_sizes', [3,1]]);
       _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
       console.log('set callback');
       _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
-      _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
+      console.log(_oneall);
+      //_oneall.push(['social_login', 'do_login', 'facebook']);
       console.log('Render UI');
-
-
     </script>
 
   </head>
@@ -205,11 +203,7 @@
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
         <ion-content class="padding">
-          <img src="http://cityzenapp.us/wp-content/uploads/2014/05/CityzenHalf_retina.png">
-          <h3>We believe in giving everyone a voice, where they are.</h3>
-          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
-          <p>Built with Sass and optimized for AngularJS.</p>
-          <button ng-click="addNotification('Cityzen -- Your City is Calling','Raleigh seeking to improve the city\'s Southern Gateway along South Saunders Street.')">Click me</button>
+          <iframe seamless class="fullscreen" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
         </ion-content>
       </ion-view>
     </script>
@@ -277,15 +271,6 @@
               <a class="item" href="#/tab/settings/categories"> Choose Subscribed Categories 
               </a>
               <li class="item item-toggle">
-              Enable Push Notifications
-                <label class="toggle toggle-balanced" ng-click="togglePushNotifications()">
-                  <input type="checkbox" ng-checked="settings.notifications.pushOn"> 
-                  <div class="track">
-                   <div class="handle"></div>
-                  </div>
-                </label>
-              </li>
-              <li class="item item-toggle">
               Enable Geolocation
                 <label class="toggle toggle-balanced" ng-click="toggleGPSNotifications()">
                   <input type="checkbox" ng-checked="settings.notifications.gpsOn">
@@ -324,9 +309,8 @@
             </button>
             <hr>
           </div>
-          
           <div id="social_no_work">
-            <button class="button button-block button-positive" ng-click="socialRedirect()">
+            <button ng-click="socialLogin()" class="button button-block button-positive">
                 Connect with Facebook
             </button>
             <button class="button button-block button-assertive">
