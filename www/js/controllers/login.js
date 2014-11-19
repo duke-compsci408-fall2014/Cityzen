@@ -8,8 +8,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 		console.log("begin login");
 		var username = document.getElementById('username').value
 		var password = document.getElementById('password').value
-		var success = userService.login(username, password);
-		if (!success){
+		var userToken = userService.login(username, password, getUserID);
+		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
      			title: 'Login Fail',
      			template: 'You have entered an incorrect username and/or password'
@@ -22,13 +22,16 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
    			});
 		}
 		else{
-			localStorage.setItem("username", username);
-			localStorage.setItem("password", password)
-			console.log("username: " + localStorage.getItem("username"));
-			console.log("password: " + localStorage.getItem("password"));
+			localStorage.setItem("userID", userToken);
+			console.log("userID: " + localStorage.getItem("userID"));
 			window.location.href = "#/tab/polls";
 		}
 
+	}
+
+	var getUserID = function(data){
+		console.log('callback!');
+		console.log('userId=' + data)
 	}
 
 	$scope.register = function(){
@@ -40,9 +43,5 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
    			registerSuccess.then(function(res) {
        			window.location.href = "#/tab/polls";
    			});
-	
-
-	}
-
-
+   	}
 });

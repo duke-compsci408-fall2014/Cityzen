@@ -13,7 +13,7 @@ app.service('pollService', function($http, $timeout) {
 		var phpFile = "listpolls2.php";
 		return $http.get(URL+phpFile+"?callback=?").
   		success(function(data) {
-  			data = data.substr(1);
+  			data = data.substr(1);app
   			//console.log(data);
   			//console.log(JSON.parse(data));
     		callback(JSON.parse(data));

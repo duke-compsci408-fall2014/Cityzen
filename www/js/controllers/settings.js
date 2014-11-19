@@ -15,10 +15,6 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 		console.log("toggling notifs");
 	}
 
-	$scope.togglePushNotifications = function() {
-		userService.settings.notifications.pushOn = !userService.settings.notifications.pushOn;
-	}
-
 	$scope.toggleGPSNotifications = function() {
 		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
 		//turn on or off watchPosition
@@ -26,10 +22,10 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 			//if GPS is enable, otherwise, notify
 	  		if (window.navigator.geolocation) {
 				$scope.watchId = $window.navigator.geolocation.watchPosition(function(position) {
+					oldZip = localStorage.getItem("zip");
 					locationService.getZipCode(position);					
-	  				if (locationService.newZip != locationService.oldZip && locationService.oldZip != null){
+	  				if (localStorage.getItem("zip") != oldZip && oldZip != null){
 	  					notificationService.addNotification("New zip code!", "You have entered a new location");
-	  					locationService.oldZip = locationService.newZip;
 	  				}
 				}, function(error) {
 					console.log('code: '    + error.code    + '\n' +
@@ -83,8 +79,3 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 	}
 
 });
-
-	
-
-
-

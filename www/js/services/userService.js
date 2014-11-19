@@ -19,16 +19,28 @@ app.service('userService', function($http) {
 		user: {}
 	};
 
-	this.login = function(username, password) {
-		console.log('begin func');
-		for (i = 0; i < currUsers.length; i++){
-			console.log(i);
-			if(currUsers[i].user == username && currUsers[i].pass == password){
-				console.log('yes');
-				return true;
-			}
-		}
-		return false;
+	this.login = function(username, password, callback) {
+		var userToken = 0;
+		return $http.get("http://cityzenapp.us/core/auth.php?user="+ username + "&pass=" + password +"&callback=?").
+  		success(function(data) {
+  			data = data.substr(1);
+  			console.log(data);
+    		callback(Number(data));
+  		}).
+  		error(function(data) {
+  			data = data.substring(1);
+  			console.log('error');
+  			console.log(data);
+  			callback(Number(data));
+  		});
+		// console.log('begin func');
+		// for (i = 0; i < currUsers.length; i++){
+		// 	console.log(i);
+		// 	if(currUsers[i].user == username && currUsers[i].pass == password){
+		// 		console.log('yes');
+		// 		return userToken;
+		// 	}
+		// }
 	}
 
 
