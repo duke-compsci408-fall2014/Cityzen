@@ -8,8 +8,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 		console.log("begin login");
 		var username = document.getElementById('username').value
 		var password = document.getElementById('password').value
-		var success = userService.login(username, password);
-		if (!success){
+		var userToken = userService.login(username, password, getUserID);
+		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
      			title: 'Login Fail',
      			template: 'You have entered an incorrect username and/or password'
@@ -22,17 +22,16 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
    			});
 		}
 		else{
-			localStorage.setItem("username", username);
-			localStorage.setItem("password", password)
-			console.log("username: " + localStorage.getItem("username"));
-			console.log("password: " + localStorage.getItem("password"));
+			localStorage.setItem("userID", userToken);
+			console.log("userID: " + localStorage.getItem("userID"));
 			window.location.href = "#/tab/polls";
 		}
 	}
 
-
-
-
+	var getUserID = function(data){
+		console.log('callback!');
+		console.log('userId=' + data)
+	}
 
 	$scope.register = function(){
 		console.log("begin register");
@@ -99,5 +98,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
  //      console.log('set callback');
  //      _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
  //      _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
+
+   	
 
 });
