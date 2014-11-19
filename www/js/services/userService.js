@@ -32,7 +32,20 @@ app.service('userService', function($http) {
 	}
 
 
-	
+	this.socialLogin = function(UUID) {
+		UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
+		URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=?";
+		$http.get(URL).success(function(data){
+			console.log(data);
+		})
+	}
+
+	this.socialLogin2 = function() {
+
+		
+	}
+
+
 
 	function getNotificationCategories() {
 		//ask server?

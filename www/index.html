@@ -41,6 +41,42 @@
     <script src="js/controllers/settings.js"></script>
     <script src="js/controllers/notifications.js"></script>
     <script src="js/controllers/localNotifications.js"></script>
+    <script type="text/javascript">
+  
+      /* Replace the subdomain with your own subdomain from a Site in your OneAll account */   
+      var oneall_subdomain = 'cityzen';
+       
+      /* Asynchronously load the library */
+      var oa = document.createElement('script');
+      oa.type = 'text/javascript'; oa.async = true;
+      oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js'
+      console.log('Connect to API');
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(oa, s)
+        
+      /* This is an event */
+      var my_on_login_redirect = function(args) {
+        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
+        console.log(args);
+      
+        window.location.href = "#/tab/polls";
+        /* As this is a demo return false to cancel the redirection to the callback_uri */
+        return false;
+      }
+        
+      /* Initialise the asynchronous queue */
+      var _oneall = _oneall || [];
+        
+      /* Social Login Example */
+      _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
+      console.log('set providers');
+      _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
+      console.log('set callback');
+      _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
+      console.log(_oneall);
+      //_oneall.push(['social_login', 'do_login', 'facebook']);
+      console.log('Render UI');
+    </script>
 
   </head>
 
@@ -167,11 +203,7 @@
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
         <ion-content class="padding">
-          <img src="http://cityzenapp.us/wp-content/uploads/2014/05/CityzenHalf_retina.png">
-          <h3>We believe in giving everyone a voice, where they are.</h3>
-          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
-          <p>Built with Sass and optimized for AngularJS.</p>
-          <button ng-click="addNotification('Cityzen -- Your City is Calling','Raleigh seeking to improve the city\'s Southern Gateway along South Saunders Street.')">Click me</button>
+          <iframe seamless class="fullscreen" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
         </ion-content>
       </ion-view>
     </script>
@@ -287,7 +319,7 @@
             <hr>
           </div>
           <div id="social_no_work">
-            <button class="button button-block button-positive">
+            <button ng-click="socialLogin()" class="button button-block button-positive">
                 Connect with Facebook
             </button>
             <button class="button button-block button-assertive">

@@ -45,6 +45,35 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
    			});
 	}
 
+	var my_on_login_redirect = function(args) {
+        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
+        console.log(args);
+      
+        //window.location.href = "#/tab/polls";
+        /* As this is a demo return false to cancel the redirection to the callback_uri */
+        return false;
+      }
+
+	$scope.socialLogin = function(provider) {
+		// _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
+		// console.log(_oneall);
+		// _oneall.push(['social_login', 'do_login', 'facebook']);
+		var UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=http://localhost:8100/#/";
+		var ref = window.open(URL, '_system', 'location=yes');
+
+		ref.addEventListener( "loadstop", function() {
+			ref.executeScript(
+        		{ code: "window.close();" },
+        		function(values) {
+        			console.log(values);
+            		alert(values[0]);
+        		}
+    		);
+		});
+
+		return false;
+	}
 
 
 	// // Ugly OneAll code
