@@ -1,6 +1,8 @@
 Cityzen App (Pretotyppe Stage)
 ======
 
+[Launch](cityzen://)
+
 #### Technologies Used
 
 - [Ionic](http://ionicframework.com/)
