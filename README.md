@@ -1,7 +1,6 @@
 Cityzen App (Pretotyppe Stage)
 ======
 
-[Launch](cityzen://)
 
 #### Technologies Used
 
