@@ -1,17 +1,19 @@
 'use strict';
 
 
-app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) {
+app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading userService) {
 
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
+		$scope.show();
 		var username = document.getElementById('username').value
 		var password = document.getElementById('password').value
 		userService.authenticate(username, password, loginWithUserID);		
 	}
 
 	var loginWithUserID = function(data){
+		$scope.hide();
 		var userToken = parseInt(data);
 		console.log('callback!');
 		userService.userID = userToken;
@@ -87,6 +89,16 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
 
 		return false;
 	}
+
+	$scope.show = function(){
+		$ionicLoading.show({
+			template: 'Attempting to Log In...',
+		});
+	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
 
 
 	// // Ugly OneAll code
