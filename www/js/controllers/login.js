@@ -69,7 +69,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		            	//don't allow the user to close unless he enters all three values
 		            	e.preventDefault();
 		          	} else {
-		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		            	//userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		            	window.location.href = "#/tab/polls";
 		          	}
 		        }
 		      },
