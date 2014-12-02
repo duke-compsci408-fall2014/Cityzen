@@ -59,11 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controller: "SettingsCtrl"
         }
       }
-    })
-
-
-    ;
-
+    });
 
 
    $urlRouterProvider.otherwise("/");

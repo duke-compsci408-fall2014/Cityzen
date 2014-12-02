@@ -49,6 +49,10 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		}
 	}
 
+	$scope.skip = function() {
+		window.location.href = "#/tab/polls";
+	}
+
 	$scope.showRegisterDialog = function(){
 		console.log("begin register");
 		$scope.data = {}
