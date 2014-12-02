@@ -67,23 +67,24 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, userService) 
         return false;
       }
 
+    $scope.test = function() {
+    	var ref = window.open('cityzen://', '_system', 'location=yes');
+    }
+
 	$scope.socialLogin = function(provider) {
-		// _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
-		// console.log(_oneall);
-		// _oneall.push(['social_login', 'do_login', 'facebook']);
-		var UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
-		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=http://localhost:8100/#/";
+		var UUID = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=cityzen://";
 		var ref = window.open(URL, '_system', 'location=yes');
 
-		ref.addEventListener( "loadstop", function() {
-			ref.executeScript(
-        		{ code: "window.close();" },
-        		function(values) {
-        			console.log(values);
-            		alert(values[0]);
-        		}
-    		);
-		});
+		// ref.addEventListener( "loadstop", function() {
+		// 	ref.executeScript(
+  //       		{ code: "window.close();" },
+  //       		function(values) {
+  //       			console.log(values);
+  //           		alert(values[0]);
+  //       		}
+  //   		);
+		// });
 
 		return false;
 	}

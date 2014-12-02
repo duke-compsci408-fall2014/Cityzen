@@ -18,4 +18,8 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <plugin name="LaunchMyApp" value="nl.xservices.plugins.LaunchMyApp"/>
+ <!--  <plugin name="nl.x-services.plugins.launchmyapp">
+    <param name="URL_SCHEME" value="cityzen" />
+  </plugin> -->
 </widget>
