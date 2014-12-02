@@ -39,6 +39,25 @@ app.service('userService', function($http) {
 		// }
 	}
 
+	this.register = function(username, password, email, callback) {
+		var newUserId = 0;
+		return $http.get("http://cityzenapp.us/core/registerNewUser.php?user="+ username + "&pass=" + password +"&email=" + email + "&callback=?").
+  		success(function(data) {
+  			data = data.substr(1);
+  			console.log(data);
+  			this.userID = data;
+    		callback(Number(data));
+  		}).
+  		error(function(data) {
+  			data = data.substring(1);
+  			console.log('error');
+  			console.log(data);
+  			this.userID = data;
+  			callback(Number(data));
+  		});
+
+	}
+
 
 	this.socialLogin = function(UUID) {
 		UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
