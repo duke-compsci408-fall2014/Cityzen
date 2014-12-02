@@ -1,0 +1,5 @@
+Future implementation:
+	Support multiple cities - requires support in the database as well as login in the mobile app
+	Support geolocation-based polls - requires a table in the database which lists polls by location and logic in the mobile app to alert users of nearby polls
+	In-app voting - allow users to vote on issues within the application, without opening a browser
+	Support in all platforms - currently only supported by iOS and Android

@@ -1,14 +1,21 @@
-Cityzen App (Pretotyppe Stage)
+Cityzen App
 ======
 
+#### Purpose
+
+Cityzen provides a service which connects City Councils to the voice of the people by delivering polls regarding currents issues
+and returning feedback to the city.
+The Cityzen mobile app serves to connect users to Cityzen’s web service via native notifications to a mobile device.
+The app serves as an interface between the mobile user and the web service;
+it’s value lies in the ability to actively engage users within a more personalized polling system
+(receipt of polls and updates are based on the user’s GPS location [or preset zip code] and user’s interest preferences).
+This takes the burden of continued engagement off the user by placing the active responsibility of user-service interaction on the service itself.
 
 #### Technologies Used
 
 - [Ionic](http://ionicframework.com/)
 - [PhoneGap(Cordova)](http://phonegap.com/)
   - [jQuery](http://jquery.com/) 
-- [Genymotion](http://www.genymotion.com/)
-
 
 
 #### Build
@@ -18,7 +25,7 @@ Download Apache Ant and add its root directory to the PATH env variable (you wil
 Once you have the Ionic-CLI installed (requires Cordova) you can create and build an app with the following commands (in the Terminal on OSX or GitBash via Windows/OSX).
 
 ```
-$ cd myApp
+$ cd Cityzen
 
 $ ionic platform add android
 

@@ -1,0 +1,15 @@
+Supported:
+	Users can login using a native account or social media accounts.
+	Users can register a new account.
+	Users can update their information and preferences.
+	Users can logout and have their preferences persist for future logins.
+	Users receive notifications about new polls.
+	Users can vote on issues in an in-app browser.
+
+
+Not Supported:
+	Geolocation based polls - application tracks changes in the user's location, but does nothing with it.
+	Has graphic interface designed for multiple cities, but does not contain logic to handle multiple cities in the database.
+
+
+Tested on Android and iOS
