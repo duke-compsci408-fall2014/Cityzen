@@ -59,11 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controller: "SettingsCtrl"
         }
       }
-    })
-
-
-    ;
-
+    });
 
 
    $urlRouterProvider.otherwise("/");
@@ -71,7 +67,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })
 
 
-app.run(function($rootScope, $ionicPlatform, notificationService) {
+app.run(function($rootScope, $ionicPlatform, notificationService, $window) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -82,6 +78,11 @@ app.run(function($rootScope, $ionicPlatform, notificationService) {
       document.addEventListener("deviceready", function() {
         window.plugin.notification.local.onclick = app.onReminderClick;
       }, false);
+
+      $window.addEventListener('cityzenURI', function(e) {
+        alert(e);
+      });
+
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();

@@ -3,6 +3,14 @@
 
 app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService) {
 
+	if(localStorage.getItem("userID") != null){
+		userService.userId = localStorage.getItem("userID");
+		if (localStorage.getItem(userService.userID) != null){
+			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
+		}
+		window.location.href = "#/tab/polls";
+	}
+
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
@@ -49,6 +57,10 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		}
 	}
 
+	$scope.skip = function() {
+		window.location.href = "#/tab/polls";
+	}
+
 	$scope.showRegisterDialog = function(){
 		console.log("begin register");
 		$scope.data = {}
@@ -69,7 +81,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		            	//don't allow the user to close unless he enters all three values
 		            	e.preventDefault();
 		          	} else {
-		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		            	//userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		            	window.location.href = "#/tab/polls";
 		          	}
 		        }
 		      },
@@ -118,23 +131,24 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
         return false;
       }
 
+    $scope.test = function() {
+    	var ref = window.open('cityzen://', '_system', 'location=yes');
+    }
+
 	$scope.socialLogin = function(provider) {
-		// _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
-		// console.log(_oneall);
-		// _oneall.push(['social_login', 'do_login', 'facebook']);
-		var UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
-		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=http://localhost:8100/#/";
+		var UUID = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=cityzen://";
 		var ref = window.open(URL, '_system', 'location=yes');
 
-		ref.addEventListener( "loadstop", function() {
-			ref.executeScript(
-        		{ code: "window.close();" },
-        		function(values) {
-        			console.log(values);
-            		alert(values[0]);
-        		}
-    		);
-		});
+		// ref.addEventListener( "loadstop", function() {
+		// 	ref.executeScript(
+  //       		{ code: "window.close();" },
+  //       		function(values) {
+  //       			console.log(values);
+  //           		alert(values[0]);
+  //       		}
+  //   		);
+		// });
 
 		return false;
 	}
