@@ -3,6 +3,14 @@
 
 app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService) {
 
+	if(localStorage.getItem("userID") != null){
+		userService.userId = localStorage.getItem("userID");
+		if (localStorage.getItem(userService.userID) != null){
+			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
+		}
+		window.location.href = "#/tab/polls";
+	}
+
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
