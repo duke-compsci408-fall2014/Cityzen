@@ -1,19 +1,19 @@
 'use strict';
 
 
-app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading userService) {
+app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService) {
 
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
-		$scope.show();
+		$scope.showLogin();
 		var username = document.getElementById('username').value
 		var password = document.getElementById('password').value
 		userService.authenticate(username, password, loginWithUserID);		
 	}
 
 	var loginWithUserID = function(data){
-		$scope.hide();
+		$scope.hideLogin();
 		var userToken = parseInt(data);
 		console.log('callback!');
 		userService.userID = userToken;
@@ -49,16 +49,65 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		}
 	}
 
-	$scope.register = function(){
+	$scope.showRegisterDialog = function(){
 		console.log("begin register");
-		var registerSuccess = $ionicPopup.alert({
-     			title: 'Registration Successful'
-   			});
-   		
-   			registerSuccess.then(function(res) {
-       			window.location.href = "#/tab/polls";
-   			});
+		$scope.data = {}
+
+		// An elaborate, custom popup
+		var myPopup = $ionicPopup.show({
+			template: '<div>Your Username: </div> <input type="text" ng-model="data.regus"> <div>Your Password: </div> <input type="password" ng-model="data.regps"> <div>Your Email Address: </div> <input type="text" ng-model="data.regem">',
+		  	title: 'Enter New User Information',
+		  	subTitle: 'Please provide a username, password, and email. Your email address will only be used for password recovery purposes. No spam!',
+		  	scope: $scope,
+		    	buttons: [
+		      	{ text: 'Cancel' },
+		      	{
+		        	text: '<b>Register</b>',
+		        	type: 'button-positive',
+		        	onTap: function(e) {
+		          	if ((!$scope.data.regus) || (!$scope.data.regps) || (!$scope.data.regem)) {
+		            	//don't allow the user to close unless he enters all three values
+		            	e.preventDefault();
+		          	} else {
+		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		          	}
+		        }
+		      },
+		    ]
+		  });
 	}
+
+	$scope.registerNewUser = function (data) {
+		var userToken = parseInt(data);		
+		console.log('callback!');
+		userService.userID = userToken;
+		console.log('userId=' + userToken)
+		if (userToken == -1){
+			var loginFail = $ionicPopup.alert({
+     			title: 'Register Failed',
+     			template: 'The Given Username is Already Registered'
+   			});
+		}
+		else if (userToken == 0){
+			var loginFail = $ionicPopup.alert({
+     			title: 'Unable to Register',
+     			template: 'You are currently not connected to the internet. Please try again later.'
+   			});
+		}
+		else{
+			localStorage.setItem("userID", userToken);
+			console.log("userID: " + localStorage.getItem("userID"));
+			if(localStorage.getItem(userToken) != null){
+				userService.settings = JSON.parse(localStorage.getItem(userToken))
+			}
+			else{
+				console.log("userId is null")
+			}
+			window.location.href = "#/tab/polls";
+		}
+	}
+
+
 
 	var my_on_login_redirect = function(args) {
         alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
@@ -90,13 +139,13 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		return false;
 	}
 
-	$scope.show = function(){
+	$scope.showLogin = function(){
 		$ionicLoading.show({
 			template: 'Attempting to Log In...',
 		});
 	};
 
-	$scope.hide = function(){
+	$scope.hideLogin = function(){
 		$ionicLoading.hide();
 	};
 
