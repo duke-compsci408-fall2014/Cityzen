@@ -69,6 +69,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
        			localStorage.clear();
        			var userData = JSON.stringify(userService.settings);
        			localStorage.setItem(userService.userID, userData);
+       			userService.restoreDefaultSettings();
        			$window.location.href = '';
        			//other stuff
      		} else {
