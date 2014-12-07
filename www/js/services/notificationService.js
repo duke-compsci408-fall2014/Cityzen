@@ -1,6 +1,6 @@
 
 //Uses Cordova Orignial Plugin: https://github.com/katzer/cordova-plugin-local-notifications
-app.service('notificationService', function($cordovaLocalNotification, $timeout, $http) {
+app.service('notificationService', function($cordovaLocalNotification, $timeout, $http, userService) {
   console.log('hello');
   /*
   * Poll database for new notifs. 
@@ -61,20 +61,23 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
 
 
   this.addNotification = function (ttle, msg) {
-    console.log('hello');
-    console.log($cordovaLocalNotification);
-    $cordovaLocalNotification.add({
-      id: 'some_notification_id',
-      title: ttle,
-      message: msg,
-      autoCancel: true,
-      icon :'ic_notification',
-      json: '{"url": "http://cityzenapp.us/core/poll/study2.php"}'
-      // parameter documentation:
-      // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
-    }).then(function () {
-      console.log('callback for adding background notification');
-    });
+    if(userService.settings.notifications.areOn)
+    {
+      console.log('hello');
+      console.log($cordovaLocalNotification);
+      $cordovaLocalNotification.add({
+        id: 'some_notification_id',
+        title: ttle,
+        message: msg,
+        autoCancel: true,
+        icon :'ic_notification',
+        json: '{"url": "http://cityzenapp.us/core/poll/study2.php"}'
+        // parameter documentation:
+        // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
+      }).then(function () {
+        console.log('callback for adding background notification');
+      });
+    }
   };
 
   // this.$on('onReminderClicked', function(event, id, state, json){

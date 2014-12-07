@@ -20,17 +20,8 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 		//turn on or off watchPosition
 		if(userService.settings.notifications.gpsOn){
 			//if GPS is enable, otherwise, notify
-	  		if (window.navigator.geolocation) {
-				$scope.watchId = $window.navigator.geolocation.watchPosition(function(position) {
-					oldZip = localStorage.getItem("zip");
-					locationService.getZipCode(position);					
-	  				if (localStorage.getItem("zip") != oldZip && oldZip != null){
-	  					notificationService.addNotification("New zip code!", "You have entered a new location");
-	  				}
-				}, function(error) {
-					console.log('code: '    + error.code    + '\n' +
-		          'message: ' + error.message + '\n');
-				}, {timeout:5000});
+	  		if ($window.navigator.geolocation) {
+				locationService.watchLocation($window.navigator.geolocation);
 			}
 			else{
 				var alertLocationDisabled = $ionicPopup.alert({
@@ -42,7 +33,10 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 			}
 		}
 		else{
-			$window.navigator.geolocation.clearWatch(watchId);
+			if (locationService.watchId){
+				$window.navigator.geolocation.clearWatch(locationService.watchId);
+				locationService.watchId = null;
+			}
 		}
 	}
 
@@ -59,6 +53,10 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 		userService.settings.notifications.categories = categories;
 	}
 
+	$scope.setCity = function(city)
+	{
+		console.log('do something')
+	}
 
 	$scope.logout = function() {
 		var confirmPopup = $ionicPopup.confirm({
@@ -71,6 +69,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
        			localStorage.clear();
        			var userData = JSON.stringify(userService.settings);
        			localStorage.setItem(userService.userID, userData);
+       			userService.restoreDefaultSettings();
        			$window.location.href = '';
        			//other stuff
      		} else {

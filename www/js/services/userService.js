@@ -14,7 +14,6 @@ app.service('userService', function($http) {
 	};
 
 	this.authenticate = function(username, password, callback) {
-		var userToken = 0;
 		return $http.get("http://cityzenapp.us/core/auth.php?user="+ username + "&pass=" + password +"&callback=?").
   		success(function(data) {
   			data = data.substr(1);
@@ -29,14 +28,6 @@ app.service('userService', function($http) {
   			this.userID = data;
   			callback(Number(data));
   		});
-		// console.log('begin func');
-		// for (i = 0; i < currUsers.length; i++){
-		// 	console.log(i);
-		// 	if(currUsers[i].user == username && currUsers[i].pass == password){
-		// 		console.log('yes');
-		// 		return userToken;
-		// 	}
-		// }
 	}
 
 	this.register = function(username, password, email, callback) {
@@ -85,7 +76,7 @@ app.service('userService', function($http) {
 	}
 
 	function getAvailableCities() {
-		//ask server?
+		//TODO: get from DB
 		return ["Raleigh", "Durham", "New York", "Boston"]
 	}
 
@@ -96,7 +87,7 @@ app.service('userService', function($http) {
 		this.settings.notifications.gpsOn = false;
 
 		this.settings.notifications.categories = getNotificationCategories();
-		this.settings.notifications.cityId = 1;
+		this.settings.notifications.cityId = 0;
 
 	
 		this.settings.user.first_name = "";
