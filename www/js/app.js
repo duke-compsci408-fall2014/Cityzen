@@ -80,10 +80,6 @@ app.run(function($rootScope, $ionicPlatform, notificationService, $window) {
         window.plugin.notification.local.onclick = app.onReminderClick;
       }, false);
 
-      $window.addEventListener('cityzenURI', function(e) {
-        alert(e);
-      });
-
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();

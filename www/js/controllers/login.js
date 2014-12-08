@@ -11,12 +11,21 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		window.location.href = "#/tab/polls";
 	}
 
+	$window.addEventListener('cityzenURI', function(e) {
+        var url = e.detail.url;
+        var parser = document.createElement('a');
+        parser.href = url;
+        var split_search = parser.search.split("=");
+        var user_token = split_search[split_search.length-1];
+        alert(user_token);
+      });
+
 	//example code
 	$scope.login = function () {
 		console.log("begin login");
 		$scope.showLogin();
-		var username = document.getElementById('username').value
-		var password = document.getElementById('password').value
+		var username = document.getElementById('username').value;
+		var password = document.getElementById('password').value;
 		userService.authenticate(username, password, loginWithUserID);		
 	}
 
@@ -136,6 +145,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
     }
 
 	$scope.socialLogin = function(provider) {
+		var platform = device.platform; //iOS or Android
+		alert(platform);
 		var UUID = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
 		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=cityzen://";
 		var ref = window.open(URL, '_system', 'location=yes');

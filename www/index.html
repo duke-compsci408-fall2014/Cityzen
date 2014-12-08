@@ -50,7 +50,6 @@
       function handleOpenURL(url) {
         var event = new CustomEvent('cityzenURI', {detail: {'url': url}});
         setTimeout(function() {
-          alert("HELLO");
           window.dispatchEvent(event);
         },0);
       }

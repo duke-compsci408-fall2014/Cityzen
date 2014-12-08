@@ -87,41 +87,41 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   //   win.focus();
   // });
 
-  this.cancelNotification = function () {
-    $cordovaLocalNotification.cancel('some_notification_id').then(function () {
-      console.log('callback for cancellation background notification');
-    });
-  };
+  // this.cancelNotification = function () {
+  //   $cordovaLocalNotification.cancel('some_notification_id').then(function () {
+  //     console.log('callback for cancellation background notification');
+  //   });
+  // };
 
-  this.cancelAllNotification = function () {
-    $cordovaLocalNotification.cancelAll().then(function () {
-      console.log('callback for canceling all background notifications');
-    });
-  };
+  // this.cancelAllNotification = function () {
+  //   $cordovaLocalNotification.cancelAll().then(function () {
+  //     console.log('callback for canceling all background notifications');
+  //   });
+  // };
 
-  this.checkIfIsScheduled = function () {
-    $cordovaLocalNotification.isScheduled('some_notification_id').then(function (isScheduled) {
-      console.log(isScheduled);
-    });
-  };
+  // this.checkIfIsScheduled = function () {
+  //   $cordovaLocalNotification.isScheduled('some_notification_id').then(function (isScheduled) {
+  //     console.log(isScheduled);
+  //   });
+  // };
 
-  this.getNotificationIds = function () {
-    $cordovaLocalNotification.getScheduledIds().then(function (scheduledIds) {
-      console.log(scheduledIds);
-    });
-  };
+  // this.getNotificationIds = function () {
+  //   $cordovaLocalNotification.getScheduledIds().then(function (scheduledIds) {
+  //     console.log(scheduledIds);
+  //   });
+  // };
 
-  this.checkIfIsTriggered = function () {
-    $cordovaLocalNotification.isTriggered('some_notification_id').then(function (isTriggered) {
-      console.log(isTriggered);
-    });
-  };
+  // this.checkIfIsTriggered = function () {
+  //   $cordovaLocalNotification.isTriggered('some_notification_id').then(function (isTriggered) {
+  //     console.log(isTriggered);
+  //   });
+  // };
 
-  this.getTriggeredIds = function () {
-    $cordovaLocalNotification.getTriggeredIds().then(function (triggeredIds) {
-      console.log(triggeredIds);
-    });
-  };
+  // this.getTriggeredIds = function () {
+  //   $cordovaLocalNotification.getTriggeredIds().then(function (triggeredIds) {
+  //     console.log(triggeredIds);
+  //   });
+  // };
 
   // $scope.notificationDefaults = $cordovaLocalNotification.getDefaults();
 
