@@ -30,7 +30,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/about",
       views: {
         'about-tab': {
-          templateUrl: "templates/about.html"
+          templateUrl: "templates/about.html",
+          controller: "AboutCtrl"
         }
       }
     })
@@ -78,10 +79,6 @@ app.run(function($rootScope, $ionicPlatform, notificationService, $window) {
       document.addEventListener("deviceready", function() {
         window.plugin.notification.local.onclick = app.onReminderClick;
       }, false);
-
-      $window.addEventListener('cityzenURI', function(e) {
-        alert(e);
-      });
 
     }
     if(window.StatusBar) {
