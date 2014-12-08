@@ -251,27 +251,9 @@
 
     <script id="templates/login.html" type="text/ng-template">
       <ion-view title="Log in">
-        <ion-content>
+        <ion-content class="background">
           <img src="img/raleigh_alerts.jpg" width="100%">
-          <div class="list">  
-            <label class="item item-input">
-              <span class="input-label">Username</span>
-              <input type="text" id="username">
-            </label>
-            <label class="item item-input">
-              <span class="input-label">Password</span>
-              <input type="password" id="password">
-            </label>
-          </div> 
-          <div>
-            <button class="button button-full button-balanced" ng-click="login()">
-              Login
-            </button>
-            <button class="button button-block button-stable" ng-click="showRegisterDialog()">
-              Register
-            </button>
-            <hr>
-          </div>
+          
           <div id="social_no_work">
             <!--button ng-click="skip()">
                 Skip this Bullshit
@@ -286,7 +268,29 @@
                 Connect with Twitter
             </button>
           </div>
-          <div id="social_login_buttons"></div>
+          <div>
+          <img src="img/cityzenSmall.jpg" class="displayed">
+          <p class="info"> Connect and Create a Username and Password with <b>Cityzen:</b></p>
+          </div>
+          <div class="list">  
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text" id="username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" id="password">
+            </label>
+          </div> 
+          <div>
+            <button class="button button-full button-positive" ng-click="login()">
+              Login
+            </button>
+            <button class="button button-block button-stable" ng-click="showRegisterDialog()">
+              Register
+            </button>
+            <hr>
+          </div>
         </ion-content>
       </ion-view>
     </script>

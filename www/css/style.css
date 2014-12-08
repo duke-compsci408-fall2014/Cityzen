@@ -22,3 +22,17 @@
 .background{
     background-color: #f7f7f7;
 }
+
+.displayed {
+    float:left;
+    width:65px;
+    padding: 0px 10px 3px 15px;
+    }
+
+.info{
+  color: #0088f2;
+  word-wrap: normal;
+  font-size: 16px;
+  padding:;
+  }
+
