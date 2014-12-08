@@ -93,7 +93,7 @@
 
     <script id="templates/polls.html" type="text/ng-template">
     <ion-view title="Open Topics">
-      <ion-content>
+      <ion-content class="background">
         <div class="bar bar-header item-input-inset">
           <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
@@ -120,7 +120,7 @@
 
     <script id="templates/notifications.html" type="text/ng-template">
       <ion-view title="Notifications">
-        <ion-content>
+        <ion-content class="background">
           <div class="list">
              <a ng-repeat="notification in notifications" ng-click="openNotifURL(notification.trackback, notification.id)" ng-class="{0:'item item-light', 1:'item item-gray'}[notification.read]">
               <h2>{{notification.title}}</h2>
@@ -179,8 +179,8 @@
 
     <script id="templates/about.html" type="text/ng-template">
       <ion-view title="About">
-        <ion-content class="padding">
-          <iframe height="89%" width="100%" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
+        <ion-content class="background">
+          <iframe height="100%" width="100%" src="http://cityzenapp.us/core/mobile/about.html"></iframe>
         </ion-content>
       </ion-view>
     </script>
@@ -191,7 +191,7 @@
 
     <script id="templates/notification_categories.html" type="text/ng-template">
       <ion-view title="Categories">
-        <ion-content>
+        <ion-content class="background">
           <ul class="list">
             <li ng-repeat="category in settings.notifications.categories" class="item item-checkbox" ng-click="toggleCategory(category.id)">
                <label class="checkbox">
@@ -207,7 +207,7 @@
 
     <script id="templates/settings.html" type="text/ng-template">
       <ion-view title="Settings">
-        <ion-content>
+        <ion-content class="background">
           <ul class="list">
             <label class="item item-input">
               <span class="input-label">First Name</span>
