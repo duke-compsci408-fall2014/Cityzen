@@ -60,7 +60,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 				userService.settings = JSON.parse(localStorage.getItem(userToken))
 			}
 			else{
-				console.log("userId is null")
+       			localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
 			}
 			window.location.href = "#/tab/polls";
 		}

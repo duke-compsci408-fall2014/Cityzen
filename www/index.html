@@ -92,7 +92,7 @@
     </script>
 
     <script id="templates/polls.html" type="text/ng-template">
-    <ion-view title="Topics">
+    <ion-view title="Open Topics">
       <ion-content>
         <div class="bar bar-header item-input-inset">
           <label class="item-input-wrapper">
@@ -231,21 +231,7 @@
               </label>
             </li>
             <span ng-if="settings.notifications.areOn" class="animate-if">
-              <li>
-                <label class="item item-input item-select">
-                  <div class="input-label">
-                    Default City
-                  </div>
-                  <select ng-model="confirmed" ng-change="setCity()">
-                    <option selected>Raleigh</option>
-                    <option>Durham</option>
-                    <option>New York</option>
-                    <option>San Francisco</option>
-                    <option>Boston</option>
-                  </select>
-                </label>
-              </li>
-              <a class="item" href="#/tab/settings/categories"> Choose Subscribed Categories 
+                <a class="item" href="#/tab/settings/categories"> Choose Subscribed Categories 
               </a>
               <li class="item item-toggle">
               Enable Geolocation
@@ -264,7 +250,7 @@
     </script>
 
     <script id="templates/login.html" type="text/ng-template">
-      <ion-view title="Login">
+      <ion-view title="Log in">
         <ion-content>
           <img src="http://cityzenapp.us/wp-content/uploads/2014/05/CityzenHalf_retina.png">
           <div class="list">  

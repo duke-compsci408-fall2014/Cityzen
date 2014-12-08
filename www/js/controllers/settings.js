@@ -51,11 +51,9 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 			}
 		}
 		userService.settings.notifications.categories = categories;
-	}
-
-	$scope.setCity = function(city)
-	{
-		console.log('do something')
+		
+		var userData = JSON.stringify(userService.settings);
+		localStorage.setItem(userService.userID, userData);
 	}
 
 	$scope.logout = function() {
