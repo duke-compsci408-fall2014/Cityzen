@@ -62,3 +62,14 @@ Plugins:
     cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=cityzen
     cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git && cordova prepare
   ```
+
+
+The following must be added to the AndroidManifest.xml file so that our callback scheme works
+ ```  
+<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="cityzen319295.ionicframework.com" android:path="/cityzen" android:scheme="http" />
+            </intent-filter>
+  ```
