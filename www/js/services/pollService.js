@@ -8,12 +8,11 @@ app.service('pollService', function($http, $timeout) {
 	var URL = "http://www.cityzenapp.us/core/poll/";
 	var TIMEOUT = 10000;
 
-
 	function getPolls(callback) {
 		var phpFile = "listpolls2.php";
 		return $http.get(URL+phpFile+"?callback=?").
   		success(function(data) {
-  			data = data.substr(1);app
+  			data = data.substr(1);
   			//console.log(data);
   			//console.log(JSON.parse(data));
     		callback(JSON.parse(data));
