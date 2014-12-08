@@ -64,12 +64,12 @@ Plugins:
   ```
 
 
-The following must be added to the AndroidManifest.xml file so that our callback scheme works
+The following must be added to the AndroidManifest.xml file under the "Activity" sub-heading so that our callback scheme works
  ```  
 <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:host="cityzen319295.ionicframework.com" android:path="/cityzen" android:scheme="http" />
-            </intent-filter>
+</intent-filter>
   ```
