@@ -13,6 +13,8 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 	$scope.toggleNotifications = function() {
 		userService.settings.notifications.areOn = !userService.settings.notifications.areOn;
 		console.log("toggling notifs");
+
+		localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
 	}
 
 	$scope.toggleGPSNotifications = function() {
@@ -51,9 +53,8 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 			}
 		}
 		userService.settings.notifications.categories = categories;
-		
-		var userData = JSON.stringify(userService.settings);
-		localStorage.setItem(userService.userID, userData);
+
+		localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
 	}
 
 	$scope.logout = function() {
@@ -67,7 +68,8 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
        			localStorage.clear();
        			var userData = JSON.stringify(userService.settings);
        			localStorage.setItem(userService.userID, userData);
-       			userService.restoreDefaultSettings();
+       			userService.resetDefaultSettings();
+       			userService.logout();
        			$window.location.href = '';
        			//other stuff
      		} else {

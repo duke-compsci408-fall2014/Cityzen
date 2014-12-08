@@ -8,6 +8,9 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		if (localStorage.getItem(userService.userID) != null){
 			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
 		}
+		else{
+			userService.resetDefaultSettings();
+		}
 		window.location.href = "#/tab/polls";
 	}
 
@@ -51,7 +54,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 				userService.settings = JSON.parse(localStorage.getItem(userToken))
 			}
 			else{
-       			localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
+				userService.resetDefaultSettings();
 			}
 			window.location.href = "#/tab/polls";
 		}

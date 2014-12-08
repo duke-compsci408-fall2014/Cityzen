@@ -30,6 +30,11 @@ app.service('userService', function($http) {
   		});
 	}
 
+	this.logout = function() {
+		$http.get("http://cityzenapp.us/core/mobile/logout.php")
+		console.log('logged out!')
+	}
+
 	this.register = function(username, password, email, callback) {
 		var newUserId = 0;
 		return $http.get("http://cityzenapp.us/core/registerNewUser.php?user="+ username + "&pass=" + password +"&email=" + email + "&callback=?").
@@ -75,20 +80,13 @@ app.service('userService', function($http) {
 		]
 	}
 
-	function getAvailableCities() {
-		//TODO: get from DB
-		return ["Raleigh", "Durham", "New York", "Boston"]
-	}
+
 
 	this.resetDefaultSettings = function() {
-		//do we need this? ask server about
-		// settings or just have default?
 		this.settings.notifications.areOn = true;
 		this.settings.notifications.gpsOn = false;
 
 		this.settings.notifications.categories = getNotificationCategories();
-		this.settings.notifications.cityId = 0;
-
 	
 		this.settings.user.first_name = "";
 		this.settings.user.last_name = "";
@@ -96,7 +94,6 @@ app.service('userService', function($http) {
 	}
 
 	this.resetDefaultSettings();
-
 
 });
 
