@@ -3,6 +3,9 @@
 
 app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService) {
 
+	var NONCE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+
+
 	if(localStorage.getItem("userID") != null){
 		userService.userId = localStorage.getItem("userID");
 		if (localStorage.getItem(userService.userID) != null){
@@ -14,13 +17,23 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		window.location.href = "#/tab/polls";
 	}
 
+	$scope.response = "response goes here";
+
 	$window.addEventListener('cityzenURI', function(e) {
         var url = e.detail.url;
+        alert(url);
         var parser = document.createElement('a');
         parser.href = url;
         var split_search = parser.search.split("=");
-        var user_token = split_search[split_search.length-1];
-        alert(user_token);
+        var connection_token = split_search[split_search.length-1];
+        userService.getSocialProfile(connection_token, NONCE ).then(function(res) {
+        	alert("got a response");
+        	var user_token = res.data.response.result.data.user.user_token;
+        	$scope.response = user_token;
+
+        });
+
+        alert(connection_token);
       });
 
 	//example code
@@ -149,9 +162,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 
 	$scope.socialLogin = function(provider) {
 		var platform = device.platform; //iOS or Android
-		alert(platform);
-		var UUID = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
-		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=cityzen://";
+		alert(platform); 
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + NONCE + "&callback_uri=cityzen://";
 		var ref = window.open(URL, '_system', 'location=yes');
 
 		// ref.addEventListener( "loadstop", function() {

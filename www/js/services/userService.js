@@ -13,6 +13,26 @@ app.service('userService', function($http) {
 		user: {}
 	};
 
+
+	
+
+
+	this.getSocialProfile = function(connection_token, nonce) {
+		var req = {
+			method: 'GET',
+			url: "https://cityzen.api.oneall.com/connections/"+connection_token+".json",
+			headers: {
+				'Authorization': 'OneAllNonce ' + nonce
+			}
+		}
+		return $http(req).success(function(response){
+			return response;
+		}).error(function(){
+			return "error";
+		});
+	}
+
+
 	this.authenticate = function(username, password, callback) {
 		return $http.get("http://cityzenapp.us/core/auth.php?user="+ username + "&pass=" + password +"&callback=?").
   		success(function(data) {
