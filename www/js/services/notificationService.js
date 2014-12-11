@@ -26,19 +26,26 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
       });
   }
     
-  this.cache = {notifications: []};
-  this.cache.notifications = userService.settings.history;
-  var that = this; //better way that this?
+  var that = this; //better way than this?
   var updateNotificationsConstantly = function() {
     getNotifications(function(response) {
-      if (!that.notificationListEquality(response, that.cache.notifications)){
+      if (!that.notificationListEquality(response, userService.settings.history)){
         var newLength = response.length;
-        var oldLength = that.cache.notifications.length;
+        var oldLength = userService.settings.history.length;
+        console.log("newLength: " + newLength + "\noldLength: " + oldLength)
 
-        that.cache.notifications = response;
+        for (var i = 0; i < response.length; i++){
+          for( var j = 0; j  < userService.settings.history.length; j++){
+            if(userService.settings.history[j].id== response[i].id){
+              response[i].read = userService.settings.history[j].read;
+            }
+          }
+        }
+        userService.settings.history = response;
+        localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
         console.log("something in the notifs has changed!");
         console.log(response);
-        console.log(that.cache.notifications);
+        console.log(userService.settings.history);
         if (newLength > oldLength){
           var newNotif = response[0];
           console.log("about to notify");
@@ -49,7 +56,23 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
     });
     
   }
-  updateNotificationsConstantly();
+
+
+  this.start = function(){
+    if(localStorage.getItem('userID')){  
+      if (userService.settings.history.length == 0){
+        console.log("length 0")
+        getNotifications(function(response){
+          userService.settings.history = response
+          updateNotificationsConstantly();
+        })
+      }
+      else{
+        console.log(userService.settings.history.length)
+        updateNotificationsConstantly();
+      }
+    }
+  }
 
   /*
   * DUPLICATE CODE ^^^^^ :(
