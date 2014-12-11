@@ -5,8 +5,10 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 
 	if(localStorage.getItem("userID") != null){
 		userService.userId = localStorage.getItem("userID");
+		console.log("check1")
 		if (localStorage.getItem(userService.userID) != null){
 			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
+			console.log("check2")
 		}
 		else{
 			userService.resetDefaultSettings();

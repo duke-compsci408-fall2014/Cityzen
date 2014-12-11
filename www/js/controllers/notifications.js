@@ -22,14 +22,24 @@ app.controller('NotificationsCtrl', function($scope, $window, userService, notif
 
 	$scope.openNotifURL = function(URL, ID) {
 		console.log(URL)
-		for (var i = 0 ;i < notificationService.cache.notifications.length; i++){
+		for (var i = 0 ; i < notificationService.cache.notifications.length; i++){
 			var notif = notificationService.cache.notifications[i];
 			if (notif.id == ID){
 
 				notificationService.cache.notifications[i].read = 1;
 			}
 		}
-		window.open(URL, '_system', 'location=yes');
+		var authURL = "http://cityzenapp.us/core/mobile/";
+		var phpFile = "auth.php";
+		var userID = localStorage.getItem('userID');
+		var newWindow = window.open(authURL + phpFile + '?userID=' + userID, '_blank', 'location=yes');
+		newWindow.addEventListener('loadstop', function(){
+			console.log('loadstop');
+			console.log(URL)
+			newWindow.executeScript({
+				code: "window.location.href = '" + URL +"'"
+			})
+		})
 		return false;
 	}
 });

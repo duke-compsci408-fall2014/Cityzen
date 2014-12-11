@@ -26,7 +26,8 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
       });
   }
     
-  this.cache = {notifications: [], calls: 0};
+  this.cache = {notifications: []};
+  this.cache.notifications = userService.settings.history;
   var that = this; //better way that this?
   var updateNotificationsConstantly = function() {
     getNotifications(function(response) {
@@ -44,8 +45,6 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
           that.addNotification(newNotif.title, newNotif.description);
         }
       }
-      that.cache.calls++;
-      console.log(that.cache.calls);
       $timeout(updateNotificationsConstantly, TIMEOUT);
     });
     
@@ -63,6 +62,7 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   this.addNotification = function (ttle, msg) {
     if(userService.settings.notifications.areOn)
     {
+      console.log("settings: " + userService.settings)
       console.log('hello');
       console.log($cordovaLocalNotification);
       $cordovaLocalNotification.add({
