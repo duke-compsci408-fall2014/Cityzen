@@ -15,7 +15,7 @@ app.controller('PollsCtrl', ['$scope', 'pollService', '$ionicLoading','$timeout'
 		var authURL = "http://cityzenapp.us/core/mobile/";
 		var phpFile = "auth.php";
 		var userID = localStorage.getItem('userID');
-		var newWindow = window.open(authURL + phpFile + '?userID=' + 1, '_blank', 'location=yes');
+		var newWindow = window.open(authURL + phpFile + '?userID=' + userID, '_blank', 'location=yes');
 		newWindow.addEventListener('loadstop', function(){
 			console.log('loadstop');
 			newWindow.executeScript({
