@@ -36,20 +36,17 @@ app.service('userService', function($http) {
 	}
 
 	this.register = function(username, password, email, callback) {
-		var newUserId = 0;
-		return $http.get("http://cityzenapp.us/core/registerNewUser.php?user="+ username + "&pass=" + password +"&email=" + email + "&callback=?").
+		var URL = "http://www.cityzenapp.us/core/";
+		var phpFile = "registerNewUser.php";
+		return $http.get(URL+phpFile+"?callback=?").
   		success(function(data) {
   			data = data.substr(1);
-  			console.log(data);
-  			this.userID = data;
-    		callback(Number(data));
+  			//console.log(data);
+  			//console.log(JSON.parse(data));
+    		callback(data);
   		}).
   		error(function(data) {
-  			data = data.substring(1);
-  			console.log('error');
-  			console.log(data);
-  			this.userID = data;
-  			callback(Number(data));
+    		console.log("CANNOT GET THE POLLS HALP");
   		});
 
 	}

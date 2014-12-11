@@ -93,7 +93,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		            	//don't allow the user to close unless he enters all three values
 		            	e.preventDefault();
 		          	} else {
-		            	//userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
+		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
 		            	window.location.href = "#/tab/polls";
 		          	}
 		        }
@@ -103,10 +103,12 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 	}
 
 	$scope.registerNewUser = function (data) {
-		var userToken = parseInt(data);		
+		//var userToken = parseInt(data);		
 		console.log('callback!');
-		userService.userID = userToken;
-		console.log('userId=' + userToken)
+		console.log(data);
+		//userService.userID = userToken;
+		//console.log('userId=' + userToken)
+		/**
 		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
      			title: 'Register Failed',
@@ -129,7 +131,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 				console.log("userId is null")
 			}
 			window.location.href = "#/tab/polls";
-		}
+		}*/
 	}
 
 
