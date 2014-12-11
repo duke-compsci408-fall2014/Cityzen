@@ -2,21 +2,27 @@
 
 
 app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService, notificationService) {
-
+	/*
+	* if user is already logged in on device:
+	* get user information from localStorage
+	* skip login page, jump to polls
+	*/
 	if(localStorage.getItem("userID") != null){
 		userService.userID = localStorage.getItem("userID");
-		console.log("check1")
 		if (localStorage.getItem(userService.userID) != null){
 			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
 			console.log(userService.settings.history)
 		}
 		else{
-			userService.resetDefaultSettings();
+			userService.resetDefaultSettings(); //cannot find user, restore default settings
 		}
-		notificationService.start();
+		notificationService.start(); //load previous notifications and begin listening for new notifications
 		window.location.href = "#/tab/polls";
 	}
 
+	/*
+	* Event fires when user accesses mobile application from another application using the Cityxzen URI
+	*/
 	$window.addEventListener('cityzenURI', function(e) {
         var url = e.detail.url;
         var parser = document.createElement('a');
@@ -26,22 +32,31 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
         alert(user_token);
       });
 
-	//example code
+	/*
+	* login with username and password, i.e., Cityzen account
+	*/
 	$scope.login = function () {
 		console.log("begin login");
 		$scope.showLogin();
 		var username = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
+		//authenticate username and password
 		userService.authenticate(username, password, loginWithUserID);		
 	}
 
+	/*
+	* callback from userService.authenticate
+	* Login once userToken has been attained and validatied
+	* data: user's userToken from either OneAll or Cityzen database
+	*/
 	var loginWithUserID = function(data){
 		$scope.hideLogin();
+		//get userToken from data
 		var userToken = parseInt(data);
-		console.log('callback!');
 		userService.userID = userToken;
-		console.log('userId=' + userToken)
+
 		if (userToken == -1){
+		//invalid token
 			var loginFail = $ionicPopup.alert({
      			title: 'Login Fail',
      			template: 'You have entered an incorrect username and/or password'
@@ -54,34 +69,31 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
    			});
 		}
 		else if (userToken == 0){
+		//connection failure
 			var loginFail = $ionicPopup.alert({
      			title: 'Unable to Login',
      			template: 'You are currently not connected to the internet. Please try again later.'
    			});
 		}
 		else{
+		//login success
 			localStorage.setItem("userID", userToken);
-			console.log("userID: " + localStorage.getItem("userID"));
-			for (var i = 0; i < localStorage.length; i++){
-			    console.log(localStorage.key(i));
-			}
 			if(localStorage.getItem(userToken)){
+				//if user has logged in previously on the device, get user info
 				userService.settings = JSON.parse(localStorage.getItem(userToken))
-				console.log(userService.settings.history)
 			}
 			else{
+				//else load default settings
 				userService.resetDefaultSettings();
-				console.log('reset')
 			}
-			notificationService.start();
-			window.location.href = "#/tab/polls";
+			notificationService.start(); //load previous notifications and begin listening for new notifications
+			window.location.href = "#/tab/polls"; //load polls page
 		}
 	}
 
-	$scope.skip = function() {
-		window.location.href = "#/tab/polls";
-	}
-
+	/*
+	* Begin register
+	*/
 	$scope.showRegisterDialog = function(){
 		console.log("begin register");
 		$scope.data = {}
@@ -103,6 +115,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		            	e.preventDefault();
 		          	} else {
 		          		$scope.showRegister();
+		          		//register with data entered by user
 		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
 		          	}
 		        }
@@ -111,58 +124,47 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		  });
 	}
 
+	/*
+	* callback from userServer.register
+	* logs user in with new userToken
+	*/
 	$scope.registerNewUser = function (data) {
-		var userToken = parseInt(data);		
-		console.log('callback!');
+		//get userTokeb
+		var userToken = parseInt(data);	
 		$scope.hideRegister();
+
 		if (userToken == -1){
+		//failed registration: invalid username
 			var loginFail = $ionicPopup.alert({
      			title: 'Registeration Failed',
      			template: 'The Given Username is Already Registered'
    			});
 		}
 		else if (userToken == -2){
+		//failed registration: invalid email
 			var loginFail = $ionicPopup.alert({
      			title: 'Registeration Failed',
      			template: 'The Given Email is Already Registered'
    			});
 		}
 		else if (userToken == 0){
+		//faile registration: connection failure
 			var loginFail = $ionicPopup.alert({
      			title: 'Unable to Register',
      			template: 'You are currently not connected to the internet. Please try again later.'
    			});
 		}
 		else{
+		//successful registration
 			userService.userID = userToken;
-			console.log('userId=' + userToken)
 			localStorage.setItem("userID", userToken);
-			console.log("userID: " + localStorage.getItem("userID"));
-			if(localStorage.getItem(userToken) != null){
-				userService.settings = JSON.parse(localStorage.getItem(userToken))
-			}
-			else{
-				console.log("userId is null")
-			}
-			window.location.href = "#/tab/polls";
+			window.location.href = "#/tab/polls"; //load polls page
 		}
 	}
 
-
-
-	var my_on_login_redirect = function(args) {
-        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
-        console.log(args);
-      
-        //window.location.href = "#/tab/polls";
-        /* As this is a demo return false to cancel the redirection to the callback_uri */
-        return false;
-      }
-
-    $scope.test = function() {
-    	var ref = window.open('cityzen://', '_system', 'location=yes');
-    }
-
+	/*
+	* login with social media using OneAll
+	*/
 	$scope.socialLogin = function(provider) {
 		var platform = device.platform; //iOS or Android
 		alert(platform);
@@ -183,50 +185,36 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		return false;
 	}
 
+	/*
+	*  Ionic feature: show load message
+	*/
 	$scope.showLogin = function(){
 		$ionicLoading.show({
 			template: 'Attempting to Log In...',
 		});
 	};
 
+	/*
+	* Ionic feature: hide load message
+	*/
 	$scope.hideLogin = function(){
 		$ionicLoading.hide();
 	};
 
-
+	/*
+	* Ionic feature: show load message
+	*/
 	$scope.showRegister = function(){
 		$ionicLoading.show({
 			template: 'Attempting to Register New User...',
 		});
 	};
 
+	/*
+	* Ionic feature: hide load message
+	*/
 	$scope.hideRegister = function(){
 		$ionicLoading.hide();
-	};
-	// // Ugly OneAll code
-	// /* This is an event */
- //      var my_on_login_redirect = function(args) {
- //        alert("You have logged in with " + args.provider.name + "\nUser Token: " + args.connection.user_token);
- //        console.log(args);
-      
- //        window.location.href = "#/tab/polls";
-
- //        /* As this is a demo return false to cancel the redirection to the callback_uri */
- //        return false;
- //      }
-        
- //      /* Initialise the asynchronous queue */
- //      var _oneall = _oneall || [];
-        
- //       Social Login Example 
- //      _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'google']]);
- //      console.log('set providers');
- //      _oneall.push(['social_login', 'set_grid_sizes', [3,1]]);
- //      _oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
- //      console.log('set callback');
- //      _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
- //      _oneall.push(['social_login', 'do_render_ui', 'social_login_buttons']);
-
-   	
+	};   	
 
 });

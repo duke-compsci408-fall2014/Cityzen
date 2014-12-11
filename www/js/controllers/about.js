@@ -1,6 +1,8 @@
 'use strict';
 
-//var app = angular.module('cityzen', ['ionic'])
+/*
+* about content loaded from database
+*/
 app.controller('AboutCtrl', ['$scope', '$http', function($scope, $http) {
 
 	

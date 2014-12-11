@@ -8,32 +8,44 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
   var URL = "http://www.cityzenapp.us/core/";
   var TIMEOUT = 15000;
 
+  var that = this; //store instance to reference within getNotifications callback function called in this.updateNotificationsConstantly
+
+  /*
+  * returns true if given notification lists are same length
+  */
   this.notificationListEquality = function(before, after) {
     return before.length == after.length;
   }
 
+  /*
+  * returns list of all notifications from the Cityzen database
+  */
   var getNotifications = function(callback){
     var phpFile = "listnotifications.php";
+    //calls back to updateNotificationsConstantly
     return $http.get(URL+phpFile+"?callback=?").
       success(function(data) {
         data = data.substr(1);
-        //console.log(data);
-        //console.log(JSON.parse(data));
         callback(JSON.parse(data));
       }).
       error(function(data) {
-        console.log("CANNOT GET THE NOTIFS HALP");
+        console.log("Unable to load notifcations");
       });
   }
-    
-  var that = this; //better way than this?
+
+  /*
+  * Checks the database for notifications using TIMEOUT as an interval
+  * If new notifications are found, attempts to send the user a local notification and updates user's stored notification list, user.settings.history
+  */
   var updateNotificationsConstantly = function() {
+    //get full list of notification
     getNotifications(function(response) {
+      //if database has changed since last poll
       if (!that.notificationListEquality(response, userService.settings.history)){
         var newLength = response.length;
         var oldLength = userService.settings.history.length;
-        console.log("newLength: " + newLength + "\noldLength: " + oldLength)
 
+        //for every read notification in local notifcation list, mark the corresponding notifcation in the new list as read
         for (var i = 0; i < response.length; i++){
           for( var j = 0; j  < userService.settings.history.length; j++){
             if(userService.settings.history[j].id== response[i].id){
@@ -41,14 +53,15 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
             }
           }
         }
+        //update notification list in mobile app and localStorage
         userService.settings.history = response;
         localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
-        console.log("something in the notifs has changed!");
-        console.log(response);
-        console.log(userService.settings.history);
+
+        //if a new notfication has been added
         if (newLength > oldLength){
+          //get most recent notification
           var newNotif = response[0];
-          console.log("about to notify");
+          //attemot to send device a local notification
           that.addNotification(newNotif.title, newNotif.description);
         }
       }
@@ -57,34 +70,35 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
     
   }
 
-
+  /*
+  * initialize notifications
+  * begin constant polling for new notifications
+  */
   this.start = function(){
+    //ensure user is logged in
     if(localStorage.getItem('userID')){  
+      //if user has no previously loaded notifications, load all recent notifications without sending local notifications
       if (userService.settings.history.length == 0){
-        console.log("length 0")
         getNotifications(function(response){
-          userService.settings.history = response
-          updateNotificationsConstantly();
+          userService.settings.history = response; //load all notifications
+          updateNotificationsConstantly(); //begin constant database polling once all existing notifs are loaded
         })
       }
       else{
-        console.log(userService.settings.history.length)
+        //begin constant database polling immediately
         updateNotificationsConstantly();
       }
     }
   }
 
   /*
-  * DUPLICATE CODE ^^^^^ :(
+  * send the device a local notifcation if user has notifications enabled
   */
-
-
-
   this.addNotification = function (ttle, msg) {
+    //check that user has enabled notification
     if(userService.settings.notifications.areOn)
     {
-      console.log("settings: " + userService.settings)
-      console.log('hello');
+      //add notification
       console.log($cordovaLocalNotification);
       $cordovaLocalNotification.add({
         id: 'some_notification_id',
@@ -96,56 +110,14 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
         // parameter documentation:
         // https://github.com/katzer/cordova-plugin-local-notifications#further-informations-1
       }).then(function () {
-        console.log('callback for adding background notification');
+        //do nothing
       });
     }
   };
 
-  // this.$on('onReminderClicked', function(event, id, state, json){
-  //   console.log('notification clicked, id: ' + id + ' state:' + state + ' json: ' + json);
-  //   addNotification('hello', 'hello');
-  //   var win = window.open('google.com', '_blank');
-  //   win.focus();
-  // });
-
-  // this.cancelNotification = function () {
-  //   $cordovaLocalNotification.cancel('some_notification_id').then(function () {
-  //     console.log('callback for cancellation background notification');
-  //   });
-  // };
-
-  // this.cancelAllNotification = function () {
-  //   $cordovaLocalNotification.cancelAll().then(function () {
-  //     console.log('callback for canceling all background notifications');
-  //   });
-  // };
-
-  // this.checkIfIsScheduled = function () {
-  //   $cordovaLocalNotification.isScheduled('some_notification_id').then(function (isScheduled) {
-  //     console.log(isScheduled);
-  //   });
-  // };
-
-  // this.getNotificationIds = function () {
-  //   $cordovaLocalNotification.getScheduledIds().then(function (scheduledIds) {
-  //     console.log(scheduledIds);
-  //   });
-  // };
-
-  // this.checkIfIsTriggered = function () {
-  //   $cordovaLocalNotification.isTriggered('some_notification_id').then(function (isTriggered) {
-  //     console.log(isTriggered);
-  //   });
-  // };
-
-  // this.getTriggeredIds = function () {
-  //   $cordovaLocalNotification.getTriggeredIds().then(function (triggeredIds) {
-  //     console.log(triggeredIds);
-  //   });
-  // };
-
-  // $scope.notificationDefaults = $cordovaLocalNotification.getDefaults();
-
+  /*
+  * use cordova default notification settings
+  */
   this.setDefaultOptions = function () {
     $cordovaLocalNotification.setDefaults({ autoCancel: true });
   };
