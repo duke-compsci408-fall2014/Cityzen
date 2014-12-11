@@ -20,17 +20,14 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		window.location.href = "#/tab/polls";
 	}
 
-	$scope.response = "response goes here";
 
 	$window.addEventListener('cityzenURI', function(e) {
         var url = e.detail.url;
-        alert(url);
         var parser = document.createElement('a');
         parser.href = url;
         var split_search = parser.search.split("=");
         var connection_token = split_search[split_search.length-1];
         userService.getSocialProfile(connection_token, NONCE ).then(function(res) {
-        	alert("got a response");
         	var user_token = res.data.response.result.data.user.user_token;
         	$scope.response = user_token;
 
@@ -41,7 +38,6 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 
         });
 
-        alert(connection_token);
       });
 
 	//example code
@@ -183,7 +179,6 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 
 	$scope.socialLogin = function(provider) {
 		var platform = device.platform; //iOS or Android
-		alert(platform); 
 		var URI = "";
 		if (platform == "iOS") {
 			URI = "cityzen://";
