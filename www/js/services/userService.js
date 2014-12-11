@@ -7,14 +7,17 @@ Changing settings
 
 */
 app.service('userService', function($http) {
-	this.userID;
+	this.userID; //user's userToken
+	//persisted user data
 	this.settings = {
-		notifications: {},
-		user: {},
-		history: []
+		notifications: {}, //notification preferences, on/off, gps, categories
+		user: {}, //user data, name, address
+		history: [] //list of previously loaded notifications, read or unread
 	};
 
-
+	/*
+	* returns userToken from OneAll token using tokenToId.php
+	*/
 	this.getUserIdFromToken = function(token) {
 		var URL = "http://cityzenapp.us/core/mobile/";
 		var PHP = "tokenToId.php";
@@ -22,11 +25,11 @@ app.service('userService', function($http) {
 		return $http.get(URL+PHP+ "?user_token="+token+"&callback=?").success(function(response){
 			return response.data;
 		})
-
-
-
 	}
 
+	/*
+	* Uses connection token to collect social profile information
+	*/
 	this.getSocialProfile = function(connection_token, nonce) {
 		var req = {
 			method: 'GET',
@@ -42,50 +45,56 @@ app.service('userService', function($http) {
 		});
 	}
 
-
+	/*
+	* authenticate username and password combination in the Cityzen database
+	*/
 	this.authenticate = function(username, password, callback) {
-		return $http.get("http://cityzenapp.us/core/auth.php?user="+ username + "&pass=" + password +"&callback=?").
+		//authenticates user with login.php
+		return $http.get("http://cityzenapp.us/core/login.php?user="+ username + "&pass=" + password +"&callback=?").
   		success(function(data) {
-  			data = data.substr(1);
-  			console.log(data);
   			this.userID = data;
     		callback(Number(data));
   		}).
   		error(function(data) {
   			data = data.substring(1);
-  			console.log('error');
-  			console.log(data);
+  			console.log('non-fatal authentication error');
   			this.userID = data;
   			callback(Number(data));
   		});
 	}
 
+	/*
+	* reset settings to default values
+	* log user out on the browser with logout.php
+	*/
 	this.logout = function() {
+		this.resetDefaultSettings();
 		$http.get("http://cityzenapp.us/core/mobile/logout.php")
-		console.log('logged out!')
 	}
 
+	/*
+	* create userToken from information provided by user in login.register using registerNewUser.php
+	*/
 	this.register = function(username, password, email, callback) {
 		var URL = "http://www.cityzenapp.us/core/";
 		var phpFile = "registerNewUser.php";
+		//calls back to login.js and returns generated userToken
 		return $http.get("http://www.cityzenapp.us/core/mobile/register.php?user=" + username + "&pass=" + password + "&email=" + email + "&callback=?").
   		success(function(data) {
   			data = data.substr(1);
-  			//console.log(data);
-  			//console.log(JSON.parse(data));
-  			console.log(data);
     		callback(data);
   		}).
   		error(function(data) {
   			data = data.substr(1);
-  			console.log('Error: Line 51, Register in UserService. This is Expected. Weird PHP Error');
-  			console.log(data);
-    		callback(data);
+  			console.log('Non-fatal register error')
+    		callback(data)
   		});
 
 	}
 
-
+	/*
+	* get userToken using OneAll for Facebook
+	*/
 	this.socialLogin = function(UUID) {
 		UUID = "abcderewrwerfdrwr23e2jk3h242kjh";
 		URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=?";
@@ -94,15 +103,10 @@ app.service('userService', function($http) {
 		})
 	}
 
-	this.socialLogin2 = function() {
-
-		
-	}
-
-
-
+	/*
+	* TODO: create categories table in database and poll
+	*/
 	function getNotificationCategories() {
-		//ask server?
 		return [
 		{id: 1, name: "Road", selected: false}, 
 		{id: 2, name: "Bike", selected: true}, 
@@ -111,9 +115,12 @@ app.service('userService', function($http) {
 		]
 	}
 
-
-
+	/*
+	* reset settings to default values
+	*/
 	this.resetDefaultSettings = function() {
+		this.userID = null;
+
 		this.settings.notifications.areOn = true;
 		this.settings.notifications.gpsOn = false;
 		this.settings.notifications.categories = getNotificationCategories();
@@ -125,7 +132,7 @@ app.service('userService', function($http) {
 		this.settings.history = [];
 	}
 
-	this.resetDefaultSettings();
+	this.resetDefaultSettings(); //initialize settings
 
 });
 

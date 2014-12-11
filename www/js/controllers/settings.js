@@ -1,27 +1,28 @@
 'use strict';
 
-//var app = angular.module('cityzen', ['ionic'])
 app.controller('SettingsCtrl', function($scope, $window, userService, locationService, notificationService, $ionicPopup) {
-	console.log("SettingsCtrl");
-
 
 	//get persisted settings
 	$scope.settings = userService.settings;
-	$scope.watchId;
 	
-
+	/*
+	* called by enable notifications switch
+	* turns capacity for receiving notifications on and off
+	*/
 	$scope.toggleNotifications = function() {
 		userService.settings.notifications.areOn = !userService.settings.notifications.areOn;
-		console.log("toggling notifs");
-
-		localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
+		localStorage.setItem(userService.userID, JSON.stringify(userService.settings)); //update settings in app and on device
 	}
 
+	/*
+	* called by enable GPS switch
+	* turns watch position on and off
+	*/
 	$scope.toggleGPSNotifications = function() {
 		userService.settings.notifications.gpsOn = !userService.settings.notifications.gpsOn;
 		//turn on or off watchPosition
 		if(userService.settings.notifications.gpsOn){
-			//if GPS is enable, otherwise, notify
+			//if GPS is enabled, otherwise, notify
 	  		if ($window.navigator.geolocation) {
 				locationService.watchLocation($window.navigator.geolocation);
 			}
@@ -35,6 +36,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 			}
 		}
 		else{
+			//turns off watchPositions
 			if (locationService.watchId){
 				$window.navigator.geolocation.clearWatch(locationService.watchId);
 				locationService.watchId = null;
@@ -42,9 +44,13 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 		}
 	}
 
-
+	/*
+	* called by particular category switch given by id
+	* updates user perferences
+	*/
 	$scope.toggleCategory = function(id) {
 		var categories = userService.settings.notifications.categories;
+		//find selected category and enable/disable
 		for (var i = 0 ; i < categories.length ; i++) {
 			var category = categories[i];
 			if (category.id == id) {
@@ -52,12 +58,16 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
 				break;
 			}
 		}
+		//update categories in app and on the device
 		userService.settings.notifications.categories = categories;
-
 		localStorage.setItem(userService.userID, JSON.stringify(userService.settings));
 	}
 
+	/*
+	* Log user out of mobile app when logout button is selected
+	*/
 	$scope.logout = function() {
+		//comfirmation popup
 		var confirmPopup = $ionicPopup.confirm({
      		title: 'Logout of Cityzen',
      		template: 'Are you sure you want to logout?'
@@ -65,19 +75,16 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
    		
    		confirmPopup.then(function(res) {
      		if(res) {
-       			localStorage.clear();
+     			//clear userID from localStorage, indicating user is not logged in
+       			localStorage.removeItem('userID');
+       			//update user information in localStorage
        			var userData = JSON.stringify(userService.settings);
        			localStorage.setItem(userService.userID, userData);
-       			console.log(userService.userID);
-       			userService.resetDefaultSettings();
-       			userService.logout();
-       			$window.location.href = '';
-       			//other stuff
+       			userService.logout();	//log user out
+       			$window.location.href = ''; //return to login page
      		} else {
        			//do nothing.
      		}
-   		});
-		
+   		});		
 	}
-
 });
