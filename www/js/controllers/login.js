@@ -32,6 +32,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
         	$scope.response = user_token;
 
         	userService.getUserIdFromToken(user_token).then(function(response){
+        		$ionicLoading.hide();
         		$scope.response= response.data;
         		loginWithUserID(response.data);
         	});
@@ -178,6 +179,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
     }
 
 	$scope.socialLogin = function(provider) {
+		$ionicLoading.show({template: "Loading..."});
 		var platform = device.platform; //iOS or Android
 		var URI = "";
 		if (platform == "iOS") {
