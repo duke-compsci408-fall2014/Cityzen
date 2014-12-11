@@ -36,3 +36,14 @@
   padding:;
   }
 
+.scroll-wrapper {
+  -webkit-overflow-scrolling: touch;
+  overflow: auto
+  /* important:  dimensions or positioning here! */
+}
+
+.scroll-wrapper iframe {
+  height: 100%;
+  width: 100%;
+  /* nada! */
+}
