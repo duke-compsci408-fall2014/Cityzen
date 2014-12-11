@@ -16,21 +16,48 @@ app.service('userService', function($http) {
 	};
 
 	/*
+	* returns userToken from OneAll token using tokenToId.php
+	*/
+	this.getUserIdFromToken = function(token) {
+		var URL = "http://cityzenapp.us/core/mobile/";
+		var PHP = "tokenToId.php";
+
+		return $http.get(URL+PHP+ "?user_token="+token+"&callback=?").success(function(response){
+			return response.data;
+		})
+	}
+
+	/*
+	* Uses connection token to collect social profile information
+	*/
+	this.getSocialProfile = function(connection_token, nonce) {
+		var req = {
+			method: 'GET',
+			url: "https://cityzen.api.oneall.com/connections/"+connection_token+".json",
+			headers: {
+				'Authorization': 'OneAllNonce ' + nonce
+			}
+		}
+		return $http(req).success(function(response){
+			return response;
+		}).error(function(){
+			return "error";
+		});
+	}
+
+	/*
 	* authenticate username and password combination in the Cityzen database
 	*/
 	this.authenticate = function(username, password, callback) {
 		//authenticates user with login.php
 		return $http.get("http://cityzenapp.us/core/login.php?user="+ username + "&pass=" + password +"&callback=?").
   		success(function(data) {
-  			data = data.substr(1);
-  			console.log(data);
   			this.userID = data;
     		callback(Number(data));
   		}).
   		error(function(data) {
   			data = data.substring(1);
-  			console.log('error');
-  			console.log(data);
+  			console.log('non-fatal authentication error');
   			this.userID = data;
   			callback(Number(data));
   		});

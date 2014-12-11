@@ -69,6 +69,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 app.run(function($rootScope, $ionicPlatform, notificationService, $window) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

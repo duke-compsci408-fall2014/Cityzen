@@ -2,6 +2,9 @@
 
 
 app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService, notificationService) {
+
+	var NONCE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+
 	/*
 	* if user is already logged in on device:
 	* get user information from localStorage
@@ -28,8 +31,19 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
         var parser = document.createElement('a');
         parser.href = url;
         var split_search = parser.search.split("=");
-        var user_token = split_search[split_search.length-1];
-        alert(user_token);
+        var connection_token = split_search[split_search.length-1];
+        userService.getSocialProfile(connection_token, NONCE ).then(function(res) {
+        	var user_token = res.data.response.result.data.user.user_token;
+        	$scope.response = user_token;
+
+        	userService.getUserIdFromToken(user_token).then(function(response){
+        		$ionicLoading.hide();
+        		$scope.response= response.data;
+        		loginWithUserID(response.data);
+        	});
+
+        });
+
       });
 
 	/*
@@ -166,21 +180,18 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 	* login with social media using OneAll
 	*/
 	$scope.socialLogin = function(provider) {
+		$ionicLoading.show({template: "Loading..."});
 		var platform = device.platform; //iOS or Android
-		alert(platform);
-		var UUID = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
-		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + UUID + "&callback_uri=cityzen://";
-		var ref = window.open(URL, '_system', 'location=yes');
+		var URI = "";
+		if (platform == "iOS") {
+			URI = "cityzen://";
+		}
+		if (platform == "Android") {
+			URI = "http://cityzen319295.ionicframework.com/cityzen";
+		}
 
-		// ref.addEventListener( "loadstop", function() {
-		// 	ref.executeScript(
-  //       		{ code: "window.close();" },
-  //       		function(values) {
-  //       			console.log(values);
-  //           		alert(values[0]);
-  //       		}
-  //   		);
-		// });
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/"+provider+"/?nonce=" + NONCE + "&callback_uri="+URI;
+		var ref = window.open(URL, '_system', 'location=yes');
 
 		return false;
 	}

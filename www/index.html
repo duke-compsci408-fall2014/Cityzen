@@ -255,16 +255,13 @@
           <img src="img/raleigh_alerts.jpg" width="100%">
           
           <div id="social_no_work">
-            <!--button ng-click="skip()">
-                Skip this Bullshit
-            </button-->
-            <button ng-click="socialLogin()" class="button button-block button-positive">
+            <button ng-click="socialLogin('facebook')" class="button button-block button-positive">
                 Connect with Facebook
             </button>
-            <button class="button button-block button-assertive">
+            <button ng-click="socialLogin('google')" class="button button-block button-assertive">
                 Connect with Google+
             </button>
-            <button class="button button-block button-calm">
+            <button ng-click="socialLogin('twitter')" class="button button-block button-calm">
                 Connect with Twitter
             </button>
           </div>
