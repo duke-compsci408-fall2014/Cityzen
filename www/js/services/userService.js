@@ -14,8 +14,17 @@ app.service('userService', function($http) {
 	};
 
 
-	
+	this.getUserIdFromToken = function(token) {
+		var URL = "http://cityzenapp.us/core/mobile/";
+		var PHP = "tokenToId.php";
 
+		return $http.get(URL+PHP+ "?user_token="+token+"&callback=?").success(function(response){
+			return response.data;
+		})
+
+
+
+	}
 
 	this.getSocialProfile = function(connection_token, nonce) {
 		var req = {
@@ -68,7 +77,7 @@ app.service('userService', function($http) {
   		}).
   		error(function(data) {
   			data = data.substr(1);
-  			console.log('Error: Line 51, Register in UserService. This is Expected. Weird PHP Error')
+  			console.log('Error: Line 51, Register in UserService. This is Expected. Weird PHP Error');
   			console.log(data);
     		callback(data);
   		});

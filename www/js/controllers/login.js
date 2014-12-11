@@ -31,6 +31,11 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
         	var user_token = res.data.response.result.data.user.user_token;
         	$scope.response = user_token;
 
+        	userService.getUserIdFromToken(user_token).then(function(response){
+        		$scope.response= response.data;
+        		loginWithUserID(response.data);
+        	});
+
         });
 
         alert(connection_token);
@@ -170,18 +175,16 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 	$scope.socialLogin = function(provider) {
 		var platform = device.platform; //iOS or Android
 		alert(platform); 
-		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/facebook/?nonce=" + NONCE + "&callback_uri=cityzen://";
-		var ref = window.open(URL, '_system', 'location=yes');
+		var URI = "";
+		if (platform == "iOS") {
+			URI = "cityzen://";
+		}
+		if (platform == "Android") {
+			URI = "http://cityzen319295.ionicframework.com/cityzen";
+		}
 
-		// ref.addEventListener( "loadstop", function() {
-		// 	ref.executeScript(
-  //       		{ code: "window.close();" },
-  //       		function(values) {
-  //       			console.log(values);
-  //           		alert(values[0]);
-  //       		}
-  //   		);
-		// });
+		var URL = "https://cityzen.api.oneall.com/socialize/connect/mobile/"+provider+"/?nonce=" + NONCE + "&callback_uri="+URI;
+		var ref = window.open(URL, '_system', 'location=yes');
 
 		return false;
 	}
