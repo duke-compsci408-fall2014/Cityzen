@@ -36,20 +36,21 @@ app.service('userService', function($http) {
 	}
 
 	this.register = function(username, password, email, callback) {
-		var newUserId = 0;
-		return $http.get("http://cityzenapp.us/core/registerNewUser.php?user="+ username + "&pass=" + password +"&email=" + email + "&callback=?").
+		var URL = "http://www.cityzenapp.us/core/";
+		var phpFile = "registerNewUser.php";
+		return $http.get("http://www.cityzenapp.us/core/mobile/register.php?user=" + username + "&pass=" + password + "&email=" + email + "&callback=?").
   		success(function(data) {
   			data = data.substr(1);
+  			//console.log(data);
+  			//console.log(JSON.parse(data));
   			console.log(data);
-  			this.userID = data;
-    		callback(Number(data));
+    		callback(data);
   		}).
   		error(function(data) {
-  			data = data.substring(1);
-  			console.log('error');
+  			data = data.substr(1);
+  			console.log('Error: Line 51, Register in UserService. This is Expected. Weird PHP Error')
   			console.log(data);
-  			this.userID = data;
-  			callback(Number(data));
+    		callback(data);
   		});
 
 	}

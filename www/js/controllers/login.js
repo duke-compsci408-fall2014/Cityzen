@@ -81,7 +81,7 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 
 		// An elaborate, custom popup
 		var myPopup = $ionicPopup.show({
-			template: '<div>Your Username: </div> <input type="text" ng-model="data.regus"> <div>Your Password: </div> <input type="password" ng-model="data.regps"> <div>Your Email Address: </div> <input type="text" ng-model="data.regem">',
+			template: '<div>Your Username: </div> <input type="text" ng-model="data.regus"> <div>Your Password: </div> <input type="password" ng-model="data.regps"> <div>Your Email Address (optional): </div> <input type="text" ng-model="data.regem">',
 		  	title: 'Enter New User Information',
 		  	subTitle: 'Please provide a username, password, and email. Your email address will only be used for password recovery purposes. No spam!',
 		  	scope: $scope,
@@ -91,12 +91,12 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		        	text: '<b>Register</b>',
 		        	type: 'button-positive',
 		        	onTap: function(e) {
-		          	if ((!$scope.data.regus) || (!$scope.data.regps) || (!$scope.data.regem)) {
+		          	if ((!$scope.data.regus) || (!$scope.data.regps)) {
 		            	//don't allow the user to close unless he enters all three values
 		            	e.preventDefault();
 		          	} else {
-		            	//userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
-		            	window.location.href = "#/tab/polls";
+		          		$scope.showRegister();
+		            	userService.register($scope.data.regus, $scope.data.regps, $scope.data.regem, $scope.registerNewUser);
 		          	}
 		        }
 		      },
@@ -107,12 +107,17 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 	$scope.registerNewUser = function (data) {
 		var userToken = parseInt(data);		
 		console.log('callback!');
-		userService.userID = userToken;
-		console.log('userId=' + userToken)
+		$scope.hideRegister();
 		if (userToken == -1){
 			var loginFail = $ionicPopup.alert({
-     			title: 'Register Failed',
+     			title: 'Registeration Failed',
      			template: 'The Given Username is Already Registered'
+   			});
+		}
+		else if (userToken == -2){
+			var loginFail = $ionicPopup.alert({
+     			title: 'Registeration Failed',
+     			template: 'The Given Email is Already Registered'
    			});
 		}
 		else if (userToken == 0){
@@ -122,6 +127,8 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
    			});
 		}
 		else{
+			userService.userID = userToken;
+			console.log('userId=' + userToken)
 			localStorage.setItem("userID", userToken);
 			console.log("userID: " + localStorage.getItem("userID"));
 			if(localStorage.getItem(userToken) != null){
@@ -180,6 +187,15 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 	};
 
 
+	$scope.showRegister = function(){
+		$ionicLoading.show({
+			template: 'Attempting to Register New User...',
+		});
+	};
+
+	$scope.hideRegister = function(){
+		$ionicLoading.hide();
+	};
 	// // Ugly OneAll code
 	// /* This is an event */
  //      var my_on_login_redirect = function(args) {
