@@ -10,7 +10,8 @@ app.service('userService', function($http) {
 	this.userID;
 	this.settings = {
 		notifications: {},
-		user: {}
+		user: {},
+		history: []
 	};
 
 
@@ -115,12 +116,13 @@ app.service('userService', function($http) {
 	this.resetDefaultSettings = function() {
 		this.settings.notifications.areOn = true;
 		this.settings.notifications.gpsOn = false;
-
 		this.settings.notifications.categories = getNotificationCategories();
 	
 		this.settings.user.first_name = "";
 		this.settings.user.last_name = "";
 		this.settings.user.address = "";
+
+		this.settings.history = [];
 	}
 
 	this.resetDefaultSettings();

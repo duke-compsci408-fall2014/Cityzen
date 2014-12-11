@@ -1,19 +1,22 @@
 'use strict';
 
 
-app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService) {
+app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading, $timeout, userService, notificationService) {
 
 	var NONCE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
 
 
 	if(localStorage.getItem("userID") != null){
-		userService.userId = localStorage.getItem("userID");
+		userService.userID = localStorage.getItem("userID");
+		console.log("check1")
 		if (localStorage.getItem(userService.userID) != null){
 			userService.settings = JSON.parse(localStorage.getItem(userService.userID));
+			console.log(userService.settings.history)
 		}
 		else{
 			userService.resetDefaultSettings();
 		}
+		notificationService.start();
 		window.location.href = "#/tab/polls";
 	}
 
@@ -77,12 +80,18 @@ app.controller('loginCtrl', function($scope, $window, $ionicPopup, $ionicLoading
 		else{
 			localStorage.setItem("userID", userToken);
 			console.log("userID: " + localStorage.getItem("userID"));
-			if(localStorage.getItem(userToken) != null){
+			for (var i = 0; i < localStorage.length; i++){
+			    console.log(localStorage.key(i));
+			}
+			if(localStorage.getItem(userToken)){
 				userService.settings = JSON.parse(localStorage.getItem(userToken))
+				console.log(userService.settings.history)
 			}
 			else{
 				userService.resetDefaultSettings();
+				console.log('reset')
 			}
+			notificationService.start();
 			window.location.href = "#/tab/polls";
 		}
 	}

@@ -68,6 +68,7 @@ app.controller('SettingsCtrl', function($scope, $window, userService, locationSe
        			localStorage.clear();
        			var userData = JSON.stringify(userService.settings);
        			localStorage.setItem(userService.userID, userData);
+       			console.log(userService.userID);
        			userService.resetDefaultSettings();
        			userService.logout();
        			$window.location.href = '';
