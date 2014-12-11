@@ -58,8 +58,6 @@ app.service('notificationService', function($cordovaLocalNotification, $timeout,
 
 
 
-
-
   this.addNotification = function (ttle, msg) {
     if(userService.settings.notifications.areOn)
     {
